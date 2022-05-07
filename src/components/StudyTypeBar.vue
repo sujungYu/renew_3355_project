@@ -1,0 +1,69 @@
+<template>
+  <nav>
+    <ul class="menu">
+      <li id="language" name="menu">언어</li>
+      <li id="project" name="menu">프로젝트</li>
+      <li id="certificate" name="menu">자격증</li>
+      <li id="job" name="menu">취업</li>
+    </ul>
+  </nav>
+</template>
+
+<script>
+export default {
+  mounted() {
+    const menu = document.querySelector('.menu');
+
+    menu.addEventListener('click', e => {
+      const selected = e.target;
+      this.changeType(selected.id);
+      this.select(menu, selected);
+    });
+  },
+  methods: {
+    select(ulEl, liEl) {
+      Array.from(ulEl.children).forEach(v => {
+        v.classList.remove('selected');
+      });
+      if (liEl) {
+        liEl.classList.add('selected');
+      }
+    },
+    async changeType(type) {
+      await this.$store.dispatch('stydyList', type);
+    },
+  },
+};
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&display=swap');
+.menu {
+  margin: 0 auto;
+  height: 4vh;
+  width: 86vw;
+}
+ul {
+  padding: 0;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+li {
+  display: inline-block;
+}
+
+ul li {
+  list-style: none;
+  color: rgb(63, 51, 81);
+  font-size: 1.6rem;
+  font-family: 'Gothic A1', sans-serif;
+  font-weight: bold;
+}
+.menu li:hover {
+  color: rgb(245, 109, 145);
+}
+.menu li.selected {
+  color: rgb(245, 109, 145);
+}
+</style>
