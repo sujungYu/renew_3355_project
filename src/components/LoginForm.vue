@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <form @submit.prevent="submitForm">
       <div>
         <input type="text" placeholder="아이디" v-model="userId" />
@@ -18,20 +18,19 @@
 <script>
 import { login } from '@/api/index.js';
 export default {
-    data() {
-        return {
-            userId: '',
-            userPw: '',
-        }
-    },
-    methods: {
+  data() {
+    return {
+      userId: '',
+      userPw: '',
+    };
+  },
+  methods: {
     submitForm() {
-      login(this.userId)
+      login(this.userId);
       this.$router.push(`/study`);
     },
-    }
-
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -46,7 +45,6 @@ input {
   height: 6vh;
   margin-bottom: 3.5vh;
   outline-color: rgb(245, 109, 145);
-
 }
 input::placeholder {
   color: rgb(223, 223, 222);

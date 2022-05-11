@@ -1,0 +1,174 @@
+<template>
+  <div class="container">
+    <select id="name" @change="myList" class="selectStudy">
+      <option selected disabled>스터디 선택</option>
+      <option v-for="name in studyNames" :key="name">
+        {{ name }}
+      </option>
+    </select>
+    <attend>
+      <template v-slot:title>
+        내 출석부
+      </template>
+      <template v-slot:attend> {{ myAttend }}회 </template>
+      <template v-slot:late> {{ myLate }}회 </template>
+      <template v-slot:absence> {{ myAbsence }}회 </template>
+    </attend>
+    <template v-if="this.studyUsers.length != 0">
+      <select id="user" @change="studyUser" class="member">
+        <option selected disabled>팀원</option>
+        <option v-for="user in this.studyUsers" :key="user.name">
+          {{ user.name }}
+        </option>
+      </select>
+      <attend>
+        <template v-slot:title>
+          스터디 출석부
+        </template>
+
+        <template v-slot:attend>
+          <!-- {{ this.$store.state.Study.attendNum }}회 -->
+          {{ attend }}회
+        </template>
+        <template v-slot:late>
+          <!-- {{ this.$store.state.Study.lateNum }}회 -->
+          {{ late }}회
+        </template>
+        <template v-slot:absence>
+          <!-- {{ this.$store.state.Study.absenceNum }}회 -->
+          {{ absence }}회
+        </template>
+      </attend>
+      <button class="attend-check" @click="check">출석 체크</button>
+    </template>
+  </div>
+</template>
+
+<script>
+import Attend from '../components/common/Attend.vue';
+export default {
+  components: { Attend },
+  data() {
+    return {
+      user: '',
+      myStudys: [],
+      studyNames: [],
+      studyUsers: [],
+      selectOption: '',
+      // onlyName: [],
+    };
+  },
+  async created() {
+    this.user = JSON.parse(localStorage.getItem('user')).userId;
+    await this.$store.dispatch('setAttend', this.user);
+    this.myStudys = this.$store.state.Study.myStudyList;
+    this.myStudys.filter(e => {
+      return this.studyNames.push(e.title);
+    });
+  },
+  computed: {
+    attend() {
+      return this.$store.state.Study.attendNum;
+    },
+    late() {
+      return this.$store.state.Study.lateNum;
+    },
+    absence() {
+      return this.$store.state.Study.absenceNum;
+    },
+    myAttend() {
+      return this.$store.state.Study.myAttendNum;
+    },
+    myLate() {
+      return this.$store.state.Study.myLateNum;
+    },
+    myAbsence() {
+      return this.$store.state.Study.MyAbsenceNum;
+    },
+  },
+  // computed: {
+  //   attendCheck() {
+  //     return this.$store.state.Study.attendList;
+  //   },
+  // },
+  methods: {
+    async studyUser() {
+      const id = document.getElementById('user');
+      const select = id.options[id.selectedIndex].value;
+      await this.$store.dispatch('teamAttend', {
+        studyUser: select,
+        studyName: this.selectOption,
+      });
+      console.log(this.$store.Study.state.lateNum);
+    },
+    my() {
+      this.$store.dispatch('myAttend', this.selectOption);
+    },
+    init() {
+      this.studyUsers = [];
+    },
+    userList() {
+      this.myStudys.filter(e => {
+        if (e.title == this.selectOption) {
+          e.user.filter(d => {
+            if (d.name == this.user && d.manager == true) {
+              this.studyUsers = e.user;
+              localStorage.setItem('study', e.title);
+              localStorage.setItem('studyUser', JSON.stringify(e.user));
+            }
+          });
+        }
+        // return;
+      });
+    },
+    // async attendList() {
+    //   await this.$store.dispatch('getAttend', this.selectOption);
+    //   // console.log(this.$store.state.Study.attendList);
+    // },
+    myList() {
+      this.init();
+      const selecName = document.getElementById('name');
+      this.selectOption = selecName.options[selecName.selectedIndex].value;
+
+      this.userList();
+      this.studyUser();
+      this.my();
+      // this.attendList();
+      // this.$store.dispatch('getAttend', selectOption);
+      // console.log(this.$store.getters.showAttend);
+
+      // console.log(selectOption);
+    },
+    check() {
+      this.$router.push('./attend/check');
+    },
+  },
+};
+</script>
+
+<style scoped>
+.container {
+  margin-top: 5.5vh;
+  width: 86vw;
+}
+.selectStudy {
+  margin-bottom: 5.5vh;
+  width: 86vw;
+  height: 4.5vh;
+  border: 1px solid rgb(245, 109, 145);
+}
+.attend-check {
+  /* margin-top: 4vh; */
+  width: 86vw;
+  height: 8vh;
+  font-size: 2rem;
+  background-color: white;
+  border: 1px solid rgb(245, 109, 145);
+  color: rgb(245, 109, 145);
+  font-family: 'Gothic A1', sans-serif;
+}
+.member {
+  position: absolute;
+  left: 72vw;
+}
+</style>

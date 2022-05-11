@@ -1,0 +1,32 @@
+{
+  "studyAttend": [
+    {
+      "name": "쑤우",
+      "attend": "attend",
+      "createdAt": "2022-5-11",
+      "studyName": "토익900",
+      "id": 1
+    },
+    {
+      "name": "이다은",
+      "attend": "late",
+      "createdAt": "2022-5-11",
+      "studyName": "토익900",
+      "id": 2
+    },
+    {
+      "name": "쑤우",
+      "attend": "attend",
+      "createdAt": "2022-5-9",
+      "studyName": "토익900",
+      "id": 1
+    },
+    {
+      "name": "이다은",
+      "attend": "late",
+      "createdAt": "2022-5-9",
+      "studyName": "토익900",
+      "id": 2
+    }
+  ]
+}

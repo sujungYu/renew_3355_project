@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Login from './modules/Login';
 import Study from './modules/Study';
+import Calendar from './modules/Calendar';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   modules: {
-    Login,
-    Study
+    Study,
+    Calendar,
   },
   state: {},
   mutations: {},

@@ -11,6 +11,11 @@
 
 <script>
 export default {
+  async created() {
+    await this.$store.dispatch('beforeSelect');
+    // this.lists = this.$store.state.Study.homeList;
+    // console.log(this.lists);
+  },
   mounted() {
     const menu = document.querySelector('.menu');
 
@@ -30,7 +35,8 @@ export default {
       }
     },
     async changeType(type) {
-      await this.$store.dispatch('stydyList', type);
+      console.log(type);
+      await this.$store.dispatch('afterSelect', type);
     },
   },
 };

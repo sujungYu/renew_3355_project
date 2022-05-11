@@ -89,7 +89,7 @@ export default {
         select2.appendChild(opt);
       }
     },
-     // 수정 필요(코드 반복)
+    // 수정 필요(코드 반복)
     selectGuArea() {
       const select2 = document.getElementById('select2');
       const select3 = document.getElementById('select3');
@@ -108,7 +108,6 @@ export default {
         select3.appendChild(opt);
       }
     },
-
   },
 };
 </script>

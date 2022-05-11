@@ -23,7 +23,7 @@
 export default {
   methods: {
     home() {
-      this.$router.push(`/home`);
+      this.$router.push(`/study`);
     },
     attend() {
       this.$router.push(`/attend`);
@@ -46,6 +46,8 @@ export default {
   text-align: center;
   background-color: rgb(245, 109, 145);
   color: white;
+  position: fixed;
+  top: 88vh;
 }
 .icon {
   display: inline-block;

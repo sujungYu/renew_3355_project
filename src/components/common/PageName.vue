@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1><slot></slot></h1>
+    <slot name="title"></slot>
+    <slot name="icon" class="icon"></slot>
     <i class="fa fa-pencil pencil"></i>
     <hr
       style="width:88vw; height:2px; border:none; background-color:rgb(245, 109, 145);"
@@ -37,5 +38,11 @@ hr {
   position: absolute;
   font-size: 2.4rem;
   color: rgb(245, 109, 145);
+}
+i {
+  color: rgb(245, 109, 145);
+  position: absolute;
+  left: 10vw;
+  font-size: 3.2rem;
 }
 </style>
