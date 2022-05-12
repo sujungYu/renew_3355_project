@@ -4,7 +4,7 @@
     <hr
       style="width:86vw; height:1px; border:none; background-color:rgb(223, 223, 222);"
     />
-    <ul v-for="list in lists" :key="list.title">
+    <ul v-for="list in getStudyLists" :key="list.title">
       <li>
         <router-link :to="`study/${list.type}/${list.id}`">
           <div class="list">{{ list.title }}</div>
@@ -25,9 +25,8 @@ export default {
   //   };
   // },
   computed: {
-    lists() {
+    getStudyLists() {
       // console.log(this.$store.state.Study.homeList);
-      console.log(this.$store.state.Study.homeList);
       return this.$store.state.Study.homeList;
     },
   },

@@ -19,20 +19,29 @@
       <div>
         <h2 v-for="user in users" :key="user" id="user" class="user">
           {{ user }}
+          <!-- <div class="select" @change="attendCheck">
+            <input type="radio" id="select1" name="user" value="출석" />
+            <label for="select1">출석</label>
+            <input type="radio" id="select2" name="attend" value="지각" />
+            <label for="select2">지각</label>
+            <input type="radio" id="select3" name="attend" value="결석" />
+            <label for="select3">결석</label>
+          </div> -->
           <div class="button-container">
-            <button id="attend" @click="check('attend', user)">출석</button>
-            <button id="late" @click="check('late', user)">지각</button>
-            <button id="absence" @click="check('absence', user)">결석</button>
+            <button id="attend" @click.once="check('출석', user)">출석</button>
+            <button id="late" @click.once="check('지각', user)">지각</button>
+            <button id="absence" @click.once="check('결석', user)">결석</button>
           </div>
         </h2>
       </div>
     </template>
 
     <template v-else>
-      <ul>
+      <ul class="member-attend">
         <li v-for="(attend, index) in attend" :key="index">
-          <i class="far fa-calendar-check check"></i>
-          {{ attend.name }}{{ attend.attend }}
+          <i class="fa-regular fa-square-check"></i>&nbsp;&nbsp;
+          {{ attend.name }} -
+          {{ attend.attend }}
         </li>
       </ul>
     </template>
@@ -73,6 +82,16 @@ export default {
     },
   },
   methods: {
+    attendCheck() {
+      const attend = document.getElementsByName('attend').length;
+
+      for (var i = 0; i < attend; i++) {
+        if (document.getElementsByName('attend')[i].checked == true) {
+          this.attend = document.getElementsByName('attend')[i].value;
+          // console.log(document.getElementsByName('attend')[i].value);
+        }
+      }
+    },
     // init() {
     //   this.$store.commit('initAttend');
     // },
@@ -81,14 +100,19 @@ export default {
         name: user,
         attend: check,
         createdAt:
-          this.$store.state.Calendar.year +
+          this.$store.state.Study.year +
           '-' +
-          this.$store.state.Calendar.month +
+          this.$store.state.Study.month +
           '-' +
-          this.$store.state.Calendar.day,
+          this.$store.state.Study.day,
         studyName: this.studyName,
       };
       studyAttend(attendInfo);
+      const target = document.getElementById('attend');
+      const tr = document.getElementById('late');
+      console.log(target);
+      target.disabled = true;
+      tr.disabled = true;
       // console.log(check);
       // console.log(user);
     },
@@ -123,10 +147,26 @@ button {
   border-radius: 10px;
   /* justify-content: space-between; */
 }
+button:focus {
+  background-color: pink;
+}
 .button-container {
+  /* font-family: 'Sunflower', sans-serif; */
   display: inline-block;
   /* display: flex; */
   width: 61vw;
+
   /* justify-content: space-between; */
+}
+.member-attend {
+  font-family: 'Sunflower', sans-serif;
+  list-style: none;
+  font-size: 2em;
+}
+i {
+  color: rgb(245, 109, 145);
+}
+li {
+  margin: 3vh auto;
 }
 </style>

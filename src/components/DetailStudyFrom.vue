@@ -12,7 +12,7 @@
     <h3>{{ this.study.rule }}</h3>
     <h5 class="go-chat">
       {{ this.study.manager }}
-      <i class="fa-solid fa-comment ch" @click="chat"></i>
+      <i class="fa-solid fa-comment chat" @click="chat"></i>
     </h5>
 
     <hr
@@ -89,9 +89,14 @@ span {
   left: 7vw;
 }
 .go-chat {
-  top: 83vh;
+  top: 78vh;
   width: 86vw;
   position: absolute;
   text-align: end;
+  font-size: 1.8em;
+  color: rgb(245, 109, 145);
+}
+.chat {
+  font-size: 3.5rem;
 }
 </style>

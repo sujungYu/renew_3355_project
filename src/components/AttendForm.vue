@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <select id="name" @change="myList" class="selectStudy">
+    <select id="name" @change="selectMyStudy" class="selectStudy">
       <option selected disabled>스터디 선택</option>
       <option v-for="name in studyNames" :key="name">
         {{ name }}
@@ -15,7 +15,7 @@
       <template v-slot:absence> {{ myAbsence }}회 </template>
     </attend>
     <template v-if="this.studyUsers.length != 0">
-      <select id="user" @change="studyUser" class="member">
+      <select id="user" @change="getSelectedStudyAttend" class="member">
         <option selected disabled>팀원</option>
         <option v-for="user in this.studyUsers" :key="user.name">
           {{ user.name }}
@@ -26,18 +26,9 @@
           스터디 출석부
         </template>
 
-        <template v-slot:attend>
-          <!-- {{ this.$store.state.Study.attendNum }}회 -->
-          {{ attend }}회
-        </template>
-        <template v-slot:late>
-          <!-- {{ this.$store.state.Study.lateNum }}회 -->
-          {{ late }}회
-        </template>
-        <template v-slot:absence>
-          <!-- {{ this.$store.state.Study.absenceNum }}회 -->
-          {{ absence }}회
-        </template>
+        <template v-slot:attend> {{ attend }}회 </template>
+        <template v-slot:late> {{ late }}회 </template>
+        <template v-slot:absence> {{ absence }}회 </template>
       </attend>
       <button class="attend-check" @click="check">출석 체크</button>
     </template>
@@ -58,13 +49,14 @@ export default {
       // onlyName: [],
     };
   },
-  async created() {
-    this.user = JSON.parse(localStorage.getItem('user')).userId;
-    await this.$store.dispatch('setAttend', this.user);
-    this.myStudys = this.$store.state.Study.myStudyList;
-    this.myStudys.filter(e => {
-      return this.studyNames.push(e.title);
-    });
+  created() {
+    this.getMyStudyLists();
+    // this.user = JSON.parse(localStorage.getItem('user')).userId;
+    // await this.$store.dispatch('setAttend', this.user);
+    // this.myStudys = this.$store.state.Study.myStudyList;
+    // this.myStudys.filter(e => {
+    //   return this.studyNames.push(e.title);
+    // });
   },
   computed: {
     attend() {
@@ -92,22 +84,34 @@ export default {
   //   },
   // },
   methods: {
-    async studyUser() {
+    initStudyUsers() {
+      this.studyUsers = [];
+    },
+
+    async getMyStudyLists() {
+      this.user = JSON.parse(localStorage.getItem('user')).userId;
+      await this.$store.dispatch('setAttend', this.user);
+      this.myStudys = this.$store.state.Study.myStudyList;
+      this.myStudys.filter(e => {
+        return this.studyNames.push(e.title);
+      });
+    },
+
+    async getSelectedStudyAttend() {
       const id = document.getElementById('user');
       const select = id.options[id.selectedIndex].value;
       await this.$store.dispatch('teamAttend', {
         studyUser: select,
         studyName: this.selectOption,
       });
-      console.log(this.$store.Study.state.lateNum);
+      // console.log(this.$store.Study.state.lateNum);
     },
-    my() {
+
+    getMyAttend() {
       this.$store.dispatch('myAttend', this.selectOption);
     },
-    init() {
-      this.studyUsers = [];
-    },
-    userList() {
+
+    getSelectedStudyUsers() {
       this.myStudys.filter(e => {
         if (e.title == this.selectOption) {
           e.user.filter(d => {
@@ -125,14 +129,15 @@ export default {
     //   await this.$store.dispatch('getAttend', this.selectOption);
     //   // console.log(this.$store.state.Study.attendList);
     // },
-    myList() {
-      this.init();
+    selectMyStudy() {
+      this.initStudyUsers();
+
       const selecName = document.getElementById('name');
       this.selectOption = selecName.options[selecName.selectedIndex].value;
 
-      this.userList();
-      this.studyUser();
-      this.my();
+      this.getSelectedStudyUsers();
+      this.getSelectedStudyAttend();
+      this.getMyAttend();
       // this.attendList();
       // this.$store.dispatch('getAttend', selectOption);
       // console.log(this.$store.getters.showAttend);
@@ -169,6 +174,8 @@ export default {
 }
 .member {
   position: absolute;
-  left: 72vw;
+  left: 71vw;
+  border: 1px solid rgb(245, 109, 145);
+  height: 4vh;
 }
 </style>

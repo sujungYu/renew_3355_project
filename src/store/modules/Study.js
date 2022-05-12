@@ -3,6 +3,7 @@ import axios from 'axios';
 const Study = {
   state: {
     myStudyList: [],
+    studyInfo: '',
     // myStudy: [],
     homeList: [],
     attendList: [],
@@ -20,9 +21,9 @@ const Study = {
     addAttend(state, payload) {
       state.attendList = payload;
     },
-    // nowStudy(state, payload) {
-    //   state.studyInfo = payload;
-    // },
+    nowStudy(state, payload) {
+      state.studyInfo = payload;
+    },
     myStudyList(state, payload) {
       state.myStudyList = payload;
     },
@@ -66,6 +67,16 @@ const Study = {
     },
   },
   actions: {
+    async setStudy({ commit }, payload) {
+      // eslint-disable-next-line prettier/prettier
+      await axios.get(`${'http://localhost:8001'}/${payload.type}?id=${payload.id}`)
+        .then(res => {
+          commit('nowStudy', res.data[0]);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // async stydyList({ commit }, payload) {
     //   // eslint-disable-next-line prettier/prettier
     //   await axios.get(`${'http://localhost:8001'}/${payload}`)
@@ -157,10 +168,10 @@ const Study = {
             .then(res => {
               res.data.filter(e => {
                 console.log(e.data);
-                if (e.attend == 'attend') {
+                if (e.attend == '출석') {
                   console.log(e);
                   commit('attend');
-                } else if (e.attend == 'late') {
+                } else if (e.attend == '지각') {
                   console.log(e);
                   commit('late');
                 } else {
@@ -179,10 +190,10 @@ const Study = {
           res.data.filter(e => {
             const user = JSON.parse(localStorage.getItem('user')).userId;
             if (e.name == user) {
-              if (e.attend == 'attend') {
+              if (e.attend == '출석') {
                 console.log(e);
                 commit('myAttend');
-              } else if (e.attend == 'late') {
+              } else if (e.attend == '지각') {
                 console.log(e);
                 commit('myLate');
               } else {

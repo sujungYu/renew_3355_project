@@ -21,7 +21,11 @@
       <div>
         <label for="" class="label">지역 선택</label>
         <div class="select">
-          <select id="select1" v-model="si" @change="selectSiArea()">
+          <select
+            id="select1"
+            v-model="si"
+            @change="selectArea('select1', 'select2')"
+          >
             <option selected disabled>시</option>
             <option
               v-for="(item, index) in koreaRegion"
@@ -31,7 +35,11 @@
               {{ index }}
             </option>
           </select>
-          <select id="select2" v-model="gungu" @change="selectGuArea()">
+          <select
+            id="select2"
+            v-model="gungu"
+            @change="selectArea('select2', 'select3')"
+          >
             <option selected disabled>군구</option>
           </select>
           <select id="select3" v-model="dong">
@@ -71,43 +79,60 @@ export default {
       signUp(newUser);
       this.$router.push('./login');
     },
-    // 수정 필요(코드 반복)
-    selectSiArea() {
-      const select1 = document.getElementById('select1');
-      const select2 = document.getElementById('select2');
-
-      const siArea = select1.options[select1.selectedIndex].value;
-      const guArea = koreaRegion[siArea];
+    selectArea(area1, area2) {
+      console.log(area1);
+      const select1 = document.getElementById(area1);
+      const select2 = document.getElementById(area2);
+      const mainArea = select1.options[select1.selectedIndex].value;
+      const subArea = koreaRegion[mainArea];
 
       select2.options.length = 0;
 
-      for (let i in guArea) {
+      for (let i in subArea) {
         let opt = document.createElement('option');
-        opt.value = guArea[i];
-        opt.text = guArea[i];
+        opt.value = subArea[i];
+        opt.text = subArea[i];
 
         select2.appendChild(opt);
       }
     },
     // 수정 필요(코드 반복)
-    selectGuArea() {
-      const select2 = document.getElementById('select2');
-      const select3 = document.getElementById('select3');
+    // selectSiArea() {
+    //   const select1 = document.getElementById('select1');
+    //   const select2 = document.getElementById('select2');
 
-      const guArea = select2.options[select2.selectedIndex].value;
-      const dongArea = koreaRegion[guArea];
-      console.log(dongArea);
+    //   const siArea = select1.options[select1.selectedIndex].value;
+    //   const guArea = koreaRegion[siArea];
 
-      select3.options.length = 0;
+    //   select2.options.length = 0;
 
-      for (let i in dongArea) {
-        let opt = document.createElement('option');
-        opt.value = dongArea[i];
-        opt.text = dongArea[i];
+    //   for (let i in guArea) {
+    //     let opt = document.createElement('option');
+    //     opt.value = guArea[i];
+    //     opt.text = guArea[i];
 
-        select3.appendChild(opt);
-      }
-    },
+    //     select2.appendChild(opt);
+    //   }
+    // },
+    // // 수정 필요(코드 반복)
+    // selectGuArea() {
+    //   const select2 = document.getElementById('select2');
+    //   const select3 = document.getElementById('select3');
+
+    //   const guArea = select2.options[select2.selectedIndex].value;
+    //   const dongArea = koreaRegion[guArea];
+    //   console.log(dongArea);
+
+    //   select3.options.length = 0;
+
+    //   for (let i in dongArea) {
+    //     let opt = document.createElement('option');
+    //     opt.value = dongArea[i];
+    //     opt.text = dongArea[i];
+
+    //     select3.appendChild(opt);
+    //   }
+    // },
   },
 };
 </script>

@@ -32,7 +32,7 @@
               v-if="getMatchedAttend(day).length > 0 && !isPrevDates(day, idx)"
             >
               <!-- {sfwef} -->
-              <i class="fa-solid fa-user"></i>
+              <i class="fa-solid fa-user user"></i>
               <!-- <div
                 v-for="(attend, idx) in getMatchedAttend(day)"
                 :key="idx"
@@ -347,14 +347,15 @@ h2 {
   margin: 0;
   text-align: center;
   font-family: 'Ubuntu', sans-serif;
-  font-size: 2rem;
-  color: rgb(141, 141, 170);
+  font-size: 3rem;
+  color: rgb(82, 74, 78);
 }
 .header {
   display: flex;
   justify-content: space-between;
   width: 70vw;
-  margin-bottom: 3vh;
+  margin-bottom: 7vh;
+  margin-top: 5vh;
   /* height: 1vh; */
   /* height: 1vh; */
   /* position: relative; */
@@ -363,8 +364,8 @@ h2 {
   /* padding: 0 auto; */
 }
 .arrowLeft {
-  font-size: 2.5rem;
-  color: rgb(141, 141, 170);
+  font-size: 3rem;
+  color: rgb(82, 74, 78);
   /* position: absolute;
   justify-content: center;
   left: 10vw;
@@ -373,8 +374,8 @@ h2 {
   color: rgb(28, 31, 34); */
 }
 .arrowRight {
-  font-size: 2.5rem;
-  color: rgb(141, 141, 170);
+  font-size: 3rem;
+  color: rgb(82, 74, 78);
   /* position: absolute;
   justify-content: center;
   right: 10vw;
@@ -392,20 +393,21 @@ table {
   text-align: center;
   border-collapse: collapse;
   width: 90vw;
-  height: 70vh;
+  /* height: 70vh; */
   font-family: 'Gothic A1', sans-serif;
   font-size: 1.25em;
   table-layout: fixed;
   /* word-break: break-all; */
 }
-i {
+/* i {
   margin: 0;
-}
+} */
 th {
   border-bottom: 0.5px solid rgba(141, 141, 170, 0.5);
 }
 
 td {
+  height: 10vh;
   border-bottom: 0.5px solid rgb(233, 233, 222);
   vertical-align: top;
 }
@@ -432,6 +434,13 @@ th:nth-child(7) {
 }
 .selected-date {
   background-color: rgb(245, 109, 145);
+}
+.user {
+  /* height: 5vh; */
+  line-height: 5vh;
+  text-align: center;
+  color: rgb(245, 109, 145);
+  font-size: 1.5em;
 }
 /* .check {
   color: red;
