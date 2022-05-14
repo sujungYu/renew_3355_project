@@ -29,7 +29,7 @@ export default {
       this.$router.push(`/attend`);
     },
     chat() {
-      this.$router.push(`/chathome`);
+      this.$router.push(`/chat/room`);
     },
   },
 };

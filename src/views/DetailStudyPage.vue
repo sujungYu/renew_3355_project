@@ -4,15 +4,15 @@
       <h1 slot="title">게시물</h1>
       <i slot="icon" class="fa-solid fa-arrow-left-long back" @click="back"></i>
     </page-name>
-    <detail-study-from></detail-study-from>
+    <detail-study-form></detail-study-form>
   </div>
 </template>
 
 <script>
 import PageName from '../components/common/PageName.vue';
-import DetailStudyFrom from '../components/DetailStudyFrom.vue';
+import DetailStudyForm from '../components/DetailStudyForm.vue';
 export default {
-  components: { PageName, DetailStudyFrom },
+  components: { PageName, DetailStudyForm },
   methods: {
     back() {
       this.$router.go(-1);

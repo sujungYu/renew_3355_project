@@ -38,6 +38,14 @@ export const router = new VueRouter({
       path: '/attend/check',
       component: () => import('@/views/AttendCheckPage.vue'), // 코드 스플리팅
     },
+    {
+      path: '/chat/room/enter/:id',
+      component: () => import('@/views/ChatPage.vue'), // 코드 스플리팅
+    },
+    {
+      path: '/chat/room',
+      component: () => import('@/views/ChatHomePage.vue'), // 코드 스플리팅
+    },
     // {
     //   path: '/chathome',
     //   component: () => import('@/views/ChatHomePage.vue'), // 코드 스플리팅

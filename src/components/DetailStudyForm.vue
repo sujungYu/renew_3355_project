@@ -12,7 +12,10 @@
     <h3>{{ this.study.rule }}</h3>
     <h5 class="go-chat">
       {{ this.study.manager }}
-      <i class="fa-solid fa-comment chat" @click="chat"></i>
+      <i
+        class="fa-solid fa-comment chat"
+        @click="chat(this.study.title, this.study.manager)"
+      ></i>
     </h5>
 
     <hr
@@ -23,24 +26,34 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       study: '',
+      user: '',
     };
   },
   async created() {
+    this.user = JSON.parse(localStorage.getItem('user')).userId;
     const info = {
       type: this.$route.params.type,
       id: this.$route.params.id,
     };
     await this.$store.dispatch('setStudy', info);
     this.study = this.$store.state.Study.studyInfo;
-    console.log(this.study);
   },
   methods: {
-    chat() {
-      this.$router.push(`/chat`);
+    chat(title, manager) {
+      let params = new URLSearchParams();
+      params.append('name', title);
+      params.append('host', this.user);
+      params.append('guest', manager);
+      axios.post('/chat/room', params).then(res => {
+        localStorage.setItem('wschat.sender', this.user);
+        localStorage.setItem('wschat.roomId', res.data.roomId);
+        location.href = '/chat/room/enter/' + res.data.roomId;
+      });
     },
   },
 };
