@@ -75,6 +75,7 @@ export default {
         userId: this.userId,
         pw: this.userPw,
         area: { si: this.si, gungu: this.gungu, dong: this.dong },
+        dongList: [],
       };
       signUp(newUser);
       this.$router.push('./login');

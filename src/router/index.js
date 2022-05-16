@@ -46,6 +46,10 @@ export const router = new VueRouter({
       path: '/chat/room',
       component: () => import('@/views/ChatHomePage.vue'), // 코드 스플리팅
     },
+    {
+      path: '/myInfo',
+      component: () => import('@/views/MyInfoPage.vue'), // 코드 스플리팅
+    },
     // {
     //   path: '/chathome',
     //   component: () => import('@/views/ChatHomePage.vue'), // 코드 스플리팅

@@ -1,20 +1,40 @@
 <template>
-  <nav>
-    <ul class="menu">
-      <li id="language" name="menu">언어</li>
-      <li id="project" name="menu">프로젝트</li>
-      <li id="certificate" name="menu">자격증</li>
-      <li id="job" name="menu">취업</li>
-    </ul>
-  </nav>
+  <div>
+    <div>
+      <select v-model="dong" @change="selectDong">
+        <option v-for="item in this.dongList" :key="item">
+          {{ item }}
+        </option>
+      </select>
+    </div>
+    <nav>
+      <ul class="menu">
+        <li id="language" name="menu">언어</li>
+        <li id="project" name="menu">프로젝트</li>
+        <li id="certificate" name="menu">자격증</li>
+        <li id="job" name="menu">취업</li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      dong: '',
+      dongList: [],
+    };
+  },
   async created() {
-    await this.$store.dispatch('beforeSelect');
+    const user = JSON.parse(localStorage.getItem('user')).id;
+    const area = JSON.parse(localStorage.getItem('area')).dong;
+    await this.$store.dispatch('getDongList', user);
+    await this.$store.dispatch('beforeSelect', area);
     // this.lists = this.$store.state.Study.homeList;
     // console.log(this.lists);
+    this.dongList = this.$store.state.Study.myDongList;
+    console.log(this.dongList);
   },
   mounted() {
     const menu = document.querySelector('.menu');
@@ -26,6 +46,9 @@ export default {
     });
   },
   methods: {
+    selectDong() {
+      this.$store.dispatch('beforeSelect', this.dong);
+    },
     select(ulEl, liEl) {
       Array.from(ulEl.children).forEach(v => {
         v.classList.remove('selected');
@@ -35,7 +58,6 @@ export default {
       }
     },
     async changeType(type) {
-      console.log(type);
       await this.$store.dispatch('afterSelect', type);
     },
   },

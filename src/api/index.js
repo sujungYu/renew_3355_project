@@ -9,6 +9,9 @@ const studyURL = {
 const attendURL = {
   baseUrl: 'http://localhost:8002',
 };
+// const areaURL = {
+//   baseUrl: 'http://localhost:8003',
+// };
 function signUp(payload) {
   return axios.post(`${userURL.baseUrl}/user`, payload);
 }
@@ -31,5 +34,11 @@ function addStudy(payload) {
 function studyAttend(payload) {
   return axios.post(`${attendURL.baseUrl}/studyAttend`, payload);
 }
+function addArea(payload) {
+  console.log(payload.dongList);
+  console.log(payload.name);
+  // eslint-disable-next-line prettier/prettier
+  return axios.patch(`${userURL.baseUrl}/user/${payload.name}`, {"dongList":payload.dongList});
+}
 
-export { signUp, login, addStudy, studyAttend };
+export { signUp, login, addStudy, studyAttend, addArea };

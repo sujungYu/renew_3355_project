@@ -16,6 +16,7 @@ const Study = {
     year: '',
     month: '',
     day: '',
+    myDongList: [],
   },
   mutations: {
     addAttend(state, payload) {
@@ -65,6 +66,9 @@ const Study = {
       state.month = payload.month;
       state.day = payload.day;
     },
+    dongList(state, payload) {
+      state.myDongList = payload;
+    },
   },
   actions: {
     async setStudy({ commit }, payload) {
@@ -88,9 +92,9 @@ const Study = {
     //     });
     // },
     async afterSelect({ commit }, payload) {
-      const area = JSON.parse(localStorage.getItem('area'));
+      const area = localStorage.getItem('dong');
       // eslint-disable-next-line prettier/prettier
-      await axios.get(`${'http://localhost:8001'}/${payload}?dong=${area.dong}`)
+      await axios.get(`${'http://localhost:8001'}/${payload}?dong=${area}`)
         .then(res => {
           // console.log(res.data[0]);
           commit('studyList', res.data);
@@ -114,29 +118,36 @@ const Study = {
         commit('myStudyList', filterInfo);
       });
     },
-    async beforeSelect({ commit }) {
+    async getDongList({ commit }, payload) {
+      // eslint-disable-next-line prettier/prettier
+      await axios.get(`${'http://localhost:8000'}/user?id=${payload}`).then(res=> {
+          commit('dongList', res.data[0].dongList);
+          console.log(res.data);
+        });
+    },
+    async beforeSelect({ commit }, payload) {
       const lists = [];
-      const area = JSON.parse(localStorage.getItem('area'));
+      // const area = JSON.parse(localStorage.getItem('area'));
       // eslint-disable-next-line prettier/prettier
-    await axios.get(`${'http://localhost:8001'}/language?dong=${area.dong}`).then(res => {
+    await axios.get(`${'http://localhost:8001'}/language?dong=${payload}`).then(res => {
           res.data.filter(e => {
             lists.push(e);
           });
         });
       // eslint-disable-next-line prettier/prettier
-    await axios.get(`${'http://localhost:8001'}/project?dong=${area.dong}`).then(res => {
+    await axios.get(`${'http://localhost:8001'}/project?dong=${payload}`).then(res => {
           res.data.filter(e => {
             lists.push(e);
           });
         });
       // eslint-disable-next-line prettier/prettier
-    await axios.get(`${'http://localhost:8001'}/certificate?dong=${area.dong}`).then(res => {
+    await axios.get(`${'http://localhost:8001'}/certificate?dong=${payload}`).then(res => {
           res.data.filter(e => {
             lists.push(e);
           });
         });
       // eslint-disable-next-line prettier/prettier
-    await axios.get(`${'http://localhost:8001'}/job?dong=${area.dong}`).then(res => {
+    await axios.get(`${'http://localhost:8001'}/job?dong=${payload}`).then(res => {
           res.data.filter(e => {
             lists.push(e);
           });

@@ -2,8 +2,9 @@
   <div>
     <slot name="title"></slot>
     <slot name="icon" class="icon"></slot>
-    <i class="fa fa-pencil pencil"></i>
+    <i class="fa fa-pencil pencil "></i>
     <hr
+      class="hr"
       style="width:88vw; height:2px; border:none; background-color:rgb(245, 109, 145);"
     />
   </div>
@@ -28,7 +29,7 @@ h1 {
   font-size: 3.6rem;
   color: rgb(245, 109, 145);
 }
-hr {
+.hr {
   position: relative;
   margin: 0 auto;
 }

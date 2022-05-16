@@ -1,19 +1,19 @@
 <template>
   <div class="footer">
-    <div class="icon" @click="home">
-      <i class="fa-solid fa-house"></i>
+    <div class="icon-container" @click="home">
+      <i class="fa-solid fa-house icon"></i>
       홈
     </div>
-    <div class="icon" @click="chat">
-      <i class="fa-solid fa-comments"></i>
+    <div class="icon-container" @click="chat">
+      <i class="fa-solid fa-comments icon"></i>
       채팅
     </div>
-    <div class="icon" @click="attend">
-      <i class="fa-solid fa-circle-check"></i>
+    <div class="icon-container" @click="attend">
+      <i class="fa-solid fa-circle-check icon"></i>
       출석
     </div>
-    <div class="icon">
-      <i class="fa-solid fa-user"></i>
+    <div class="icon-container" @click="myInfo">
+      <i class="fa-solid fa-user icon"></i>
       내 정보
     </div>
   </div>
@@ -30,6 +30,9 @@ export default {
     },
     chat() {
       this.$router.push(`/chat/room`);
+    },
+    myInfo() {
+      this.$router.push(`/myInfo`);
     },
   },
 };
@@ -49,11 +52,11 @@ export default {
   position: fixed;
   top: 88vh;
 }
-.icon {
+.icon-container {
   display: inline-block;
   font-size: 1.2rem;
 }
-i {
+.icon {
   font-size: 2.4rem;
   display: block;
 }
