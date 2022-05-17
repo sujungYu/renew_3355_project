@@ -176,6 +176,6 @@ export default {
   position: absolute;
   left: 71vw;
   border: 1px solid rgb(245, 109, 145);
-  height: 4vh;
+  height: 3vh;
 }
 </style>

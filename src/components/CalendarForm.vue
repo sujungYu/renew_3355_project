@@ -45,7 +45,7 @@
         </tr>
       </tbody>
     </table>
-    <modal v-show="showModal" :open="showModal" @close="showModal = false">
+    <modal v-show="showModal" :open="showModal" @close="close">
       <attend-member></attend-member>
     </modal>
   </div>
@@ -225,7 +225,8 @@ export default {
         (this.previewDate.indexOf(day) > -1 && idx > 1)
       );
     },
-    clickDate(day, idx) {
+    async clickDate(day, idx) {
+      console.log('2');
       // console.log(this.previewDate);
       // console.log(idx);
       const attendYear = this.year;
@@ -314,7 +315,7 @@ export default {
       // console.log(this.prevDate);
 
       this.showModal = !this.showModal;
-      this.$store.commit('clickDate', {
+      await this.$store.commit('clickDate', {
         year: attendYear,
         month: attendMonth,
         day: attendDay,
@@ -331,6 +332,10 @@ export default {
       } else {
         return false;
       }
+    },
+    close() {
+      this.showModal = false;
+      this.$router.go();
     },
   },
 };

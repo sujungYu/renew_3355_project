@@ -15,8 +15,8 @@ const attendURL = {
 function signUp(payload) {
   return axios.post(`${userURL.baseUrl}/user`, payload);
 }
-function login(payload) {
-  axios.get(`${userURL.baseUrl}/user?userId=${payload}`).then(res => {
+async function login(payload) {
+  await axios.get(`${userURL.baseUrl}/user?userId=${payload}`).then(res => {
     localStorage.setItem(
       'user',
       JSON.stringify({

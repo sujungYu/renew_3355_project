@@ -25,8 +25,8 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      login(this.userId);
+    async submitForm() {
+      await login(this.userId);
       this.$router.push(`/study`);
     },
   },

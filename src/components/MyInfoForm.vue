@@ -1,14 +1,16 @@
 <template>
   <div>
-    <!-- <div>
+    <div>
       <info-line>
         <h2 slot="name">내 프로필</h2>
-        <i slot="icon" class="fa-solid fa-circle-question"></i>
+        <!-- <i slot="icon" class="fa-solid fa-circle-question"></i> -->
       </info-line>
-      <i class="fa-solid fa-face-smile"></i>
-      <h2>{{ this.user }}</h2>
-      <h2>{{ area.si }} {{ area.gungu }} {{ area.dong }}</h2>
-    </div> -->
+      <div class="info-container">
+        <i class="fa-regular fa-circle-user smile"></i>
+        <h2 class="user">{{ this.user }}</h2>
+        <h2 class="area">{{ area.si }} {{ area.gungu }} {{ area.dong }}</h2>
+      </div>
+    </div>
 
     <info-line>
       <h2 slot="name">내 동네 설정</h2>
@@ -48,4 +50,29 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+.smile {
+  font-size: 5em;
+  float: left;
+  height: 10vh;
+  width: 20vw;
+}
+.user {
+  font-size: 2em;
+  margin: 0 auto;
+  /* text-align: center; */
+}
+.area {
+  font-size: 1.3em;
+  margin: 1.3vh auto;
+  /* text-align: center; */
+}
+.info-container {
+  color: rgb(141, 141, 170);
+  padding-left: 9vw;
+  font-family: 'Gothic A1', sans-serif;
+  width: 86vw;
+  /* margin-bottom: vh; */
+}
+</style>

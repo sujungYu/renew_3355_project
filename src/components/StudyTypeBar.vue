@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div>
+    <div class="typebar">
       <select v-model="dong" @change="selectDong">
+        <option value="" disabled hidden>스터디 지역을 선택하세요.</option>
         <option v-for="item in this.dongList" :key="item">
           {{ item }}
         </option>
@@ -58,7 +59,10 @@ export default {
       }
     },
     async changeType(type) {
-      await this.$store.dispatch('afterSelect', type);
+      await this.$store.dispatch('afterSelect', {
+        type: type,
+        dong: this.dong,
+      });
     },
   },
 };
@@ -66,6 +70,15 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&display=swap');
+.typebar {
+  width: 86vw;
+}
+select {
+  height: 4vh;
+  width: 86vw;
+  border: 2px solid rgb(245, 109, 145);
+  border-radius: 5px;
+}
 .menu {
   margin: 0 auto;
   height: 4vh;

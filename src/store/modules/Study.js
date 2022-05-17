@@ -61,10 +61,10 @@ const Study = {
       state.myLateNum = 0;
       state.myAbsenceNum = 0;
     },
-    clickDate(state, payload) {
-      state.year = payload.year;
-      state.month = payload.month;
-      state.day = payload.day;
+    async clickDate(state, payload) {
+      state.year = await payload.year;
+      state.month = await payload.month;
+      state.day = await payload.day;
     },
     dongList(state, payload) {
       state.myDongList = payload;
@@ -92,9 +92,9 @@ const Study = {
     //     });
     // },
     async afterSelect({ commit }, payload) {
-      const area = localStorage.getItem('dong');
+      // const area = localStorage.getItem('dong');
       // eslint-disable-next-line prettier/prettier
-      await axios.get(`${'http://localhost:8001'}/${payload}?dong=${area}`)
+      await axios.get(`${'http://localhost:8001'}/${payload.type}?dong=${payload.dong}`)
         .then(res => {
           // console.log(res.data[0]);
           commit('studyList', res.data);

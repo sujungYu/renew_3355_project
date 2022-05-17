@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3><i class="fa-solid fa-location-crosshairs"></i>동네 재설정</h3>
+    <h3><i class="fa-solid fa-location-crosshairs"></i>&nbsp;동네 재설정</h3>
     <hr
       style="width:80vw; height:1px; border:none; background-color:rgb(245, 109, 145);"
     />
@@ -10,7 +10,7 @@
         v-model="si"
         @change="selectArea('select1', 'select2')"
       >
-        <option selected disabled>시</option>
+        <option value="" disabled hidden>시</option>
         <option
           v-for="(item, index) in koreaRegion"
           :key="index"
@@ -24,13 +24,13 @@
         v-model="gungu"
         @change="selectArea('select2', 'select3')"
       >
-        <option selected disabled>군구</option>
+        <option value="" disabled hidden>군구</option>
       </select>
       <select id="select3" v-model="dong">
-        <option selected disabled>읍면동</option>
+        <option value="" disabled hidden>읍면동</option>
       </select>
     </div>
-    <h3><i class="fa-solid fa-location-crosshairs"></i>동네 추가</h3>
+    <h3><i class="fa-solid fa-location-crosshairs"></i>&nbsp;동네 추가</h3>
     <hr
       style="width:80vw; height:1px; border:none; background-color:rgb(245, 109, 145);"
     />
@@ -39,7 +39,8 @@
         <input type="checkbox" v-model="addDong" :value="index" :id="item" />
         <label :for="item"> {{ index }}</label>
       </div>
-      <button class="submit" @click="submit">완료</button>
+      <i class="fa-solid fa-circle-plus submit" @click="submit"></i>
+      <!-- <button class="submit" @click="submit">완료</button> -->
     </div>
   </div>
 </template>
@@ -60,7 +61,7 @@ export default {
   },
   computed: {
     dongs() {
-      if (this.dong == '') {
+      if (this.gungu == '') {
         return this.getDong;
       } else {
         return koreaRegion[this.gungu];
@@ -124,7 +125,7 @@ select {
   border: 1px solid rgb(245, 109, 145);
   border-radius: 10px;
   width: 25vw;
-  height: 5vh;
+  height: 3.5vh;
 }
 .select {
   margin: 0 auto;
@@ -170,14 +171,16 @@ select {
   color: white;
 }
 .submit {
+  display: block;
   margin-top: 4vh;
-  width: 86vw;
-  height: 6vh;
-  font-size: 2rem;
-  border-radius: 10px;
-  background-color: rgb(245, 109, 145);
-  border: none;
-  color: white;
-  font-family: 'Gothic A1', sans-serif;
+  /* width: 86vw; */
+  /* height: 6vh; */
+  font-size: 3em;
+  float: right;
+  /* border-radius: 10px; */
+  /* background-color: rgb(245, 109, 145); */
+  /* border: none; */
+  color: rgb(245, 109, 145);
+  /* font-family: 'Gothic A1', sans-serif; */
 }
 </style>

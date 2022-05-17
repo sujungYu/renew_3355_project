@@ -18,6 +18,7 @@ export default {};
 @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
 .name-container {
   margin: 0 auto;
+  margin-top: 4vh;
   width: 86vw;
   display: flex;
   justify-content: space-between;
