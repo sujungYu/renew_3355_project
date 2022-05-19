@@ -1,16 +1,31 @@
 <template>
   <div>
-    <ul>
-      <li v-for="item in chatrooms" :key="item" @click="enterRoom(item.roomId)">
-        <i class="fa-solid fa-face-smile smile"></i>
+    <ul v-for="(item, index) in chatrooms" :key="index">
+      <li>
+        <i
+          class="fa-solid fa-face-smile smile"
+          @click="enterRoom(item.roomId)"
+        ></i>
         <i
           class="fa-solid fa-circle-minus delete"
           @click="deleteRoom(item.roomId)"
         ></i>
-        <div class="chat-name">
-          <h3>{{ item.roomName }}</h3>
-          <h2>{{ item.guest }}</h2>
-        </div>
+        <template v-if="user == item.host">
+          <div class="chat-name">
+            <h3>{{ item.roomName }}</h3>
+            <h2>{{ item.guest }}</h2>
+            <i
+              class="fa-solid fa-user-plus plus"
+              @click="addMember(item.roomName, item.guest)"
+            ></i>
+          </div>
+        </template>
+        <template v-else>
+          <div class="chat-name">
+            <h3>{{ item.roomName }}</h3>
+            <h2>{{ item.host }}</h2>
+          </div>
+        </template>
       </li>
     </ul>
     <!-- <ul>
@@ -26,26 +41,42 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { deleteChatRoom, addMembers } from '@/api/index.js';
 export default {
   data() {
     return {
+      user: '',
       //   title: '',
       //   guest: '',
-      chatrooms: [],
+      // chatrooms: [],
     };
   },
-  created() {
+  async created() {
+    // this.$router.go();
+    this.user = JSON.parse(localStorage.getItem('user')).userId;
+    // console.log(this.user);
+    await this.$store.dispatch('findChatRoom', this.user);
+    // console.log('1');
+
     // this.title = '토토토토익';
     // this.guest = '쑤우';
-    this.findAllRoom();
+    // this.findAllRoom();
+  },
+  computed: {
+    chatrooms() {
+      // console.log('2');
+      // this.$store.dispatch('findChatRoom', this.host);
+      // console.log(this.$store.state.Study.chatRooms);
+      return this.$store.state.Study.chatRooms;
+    },
   },
   methods: {
-    findAllRoom() {
-      axios.get('/chat/rooms').then(response => {
-        this.chatrooms = response.data;
-      });
-    },
+    // findAllRoom() {
+    //   axios.get('/chat/rooms').then(response => {
+    //     this.chatrooms = response.data;
+    //   });
+    // },
     enterRoom(roomId) {
       const sender = JSON.parse(localStorage.getItem('user')).userId;
       if (sender != '') {
@@ -54,10 +85,18 @@ export default {
         location.href = '/chat/room/enter/' + roomId;
       }
     },
-    deleteRoom(roomId) {
-      console.log('delete');
-      axios.delete('/chat/roominfo?roomId=' + roomId);
-      axios.delete('/chat/messages?roomId=' + roomId);
+    deleteRoom() {
+      deleteChatRoom();
+      // deleteChaMessages(roomId);
+      // axios.delete('/chat/roominfo?roomId=' + roomId);
+      // axios.delete('/chat/messages?roomId=' + roomId);
+    },
+    addMember(title, member) {
+      const addInfo = {
+        title: title,
+        member: member,
+      };
+      addMembers(addInfo);
     },
   },
 };

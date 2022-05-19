@@ -9,24 +9,25 @@ const studyURL = {
 const attendURL = {
   baseUrl: 'http://localhost:8002',
 };
-// const areaURL = {
-//   baseUrl: 'http://localhost:8003',
-// };
+const chatMessagesURL = {
+  baseUrl: 'http://localhost:8004',
+};
+const chatRoomsURL = {
+  baseUrl: 'http://localhost:8003',
+};
+const studyMembersURL = {
+  baseUrl: 'http://localhost:8005',
+};
 function signUp(payload) {
   return axios.post(`${userURL.baseUrl}/user`, payload);
 }
 async function login(payload) {
   await axios.get(`${userURL.baseUrl}/user?userId=${payload}`).then(res => {
-    localStorage.setItem(
-      'user',
-      JSON.stringify({
-        userId: res.data[0].userId,
-        id: res.data[0].id,
-      }),
-    );
+    // eslint-disable-next-line prettier/prettier
+    localStorage.setItem('user',JSON.stringify({userId: res.data[0].userId,id: res.data[0].id,}));
     localStorage.setItem('area', JSON.stringify(res.data[0].area));
+    return;
   });
-  return;
 }
 function addStudy(payload) {
   return axios.post(`${studyURL.baseUrl}/${payload.type}`, payload);
@@ -40,5 +41,47 @@ function addArea(payload) {
   // eslint-disable-next-line prettier/prettier
   return axios.patch(`${userURL.baseUrl}/user/${payload.name}`, {"dongList":payload.dongList});
 }
+function deleteChatRoom(payload) {
+  // console.log(payload);
+  return axios.delete(`${chatRoomsURL.baseUrl}/chat?roomId=${payload}`);
+}
+function deleteChaMessages(payload) {
+  return axios.delete(`${chatMessagesURL.baseUrl}/messages?roomId=${payload}`);
+}
+function addMembersForm(payload) {
+  return axios.post(`${studyMembersURL.baseUrl}/member`, payload);
+}
+function addMembers(payload) {
+  const memberInfo = {
+    name: payload.member,
+    manager: false,
+  };
+  // eslint-disable-next-line prettier/prettier
+  axios.get(`${studyMembersURL.baseUrl}/member?title=${payload.title}`).then(res=> {
 
-export { signUp, login, addStudy, studyAttend, addArea };
+      const userList = res.data[0].user;
+      console.log(memberInfo);
+      console.log(userList);
+      console.log(userList.concat(memberInfo));
+      // eslint-disable-next-line prettier/prettier
+      return axios.patch(`${studyMembersURL.baseUrl}/member/${res.data[0].id}`, { "user": userList.concat(memberInfo) });
+    });
+  // console.log(payload.title);
+  // const memberInfo = {
+  //   name: payload.member,
+  //   manager: false,
+  // };
+  // eslint-disable-next-line prettier/prettier
+  // return axios.patch(`${studyMembersURL.baseUrl}/member/${payload.title}`,{ "user": [payload.member] });
+}
+export {
+  signUp,
+  login,
+  addStudy,
+  studyAttend,
+  addArea,
+  deleteChatRoom,
+  deleteChaMessages,
+  addMembersForm,
+  addMembers,
+};

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="loginForm-container">
     <form @submit.prevent="submitForm">
       <div>
         <input type="text" placeholder="아이디" v-model="userId" />
@@ -7,7 +7,7 @@
       <div>
         <input type="password" placeholder="비밀번호" v-model="userPw" />
       </div>
-      <button>
+      <button class="login-button">
         로그인
       </button>
     </form>
@@ -50,15 +50,15 @@ input::placeholder {
   color: rgb(223, 223, 222);
   font-family: 'Gothic A1', sans-serif;
 }
-form {
+.loginForm-container {
   margin-top: 15vh;
 }
-button {
+.login-button {
   border: 1px solid rgb(245, 109, 145);
   border-radius: 10px;
   width: 86vw;
   height: 9vh;
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   background-color: rgb(245, 109, 145);
   color: white;
   font-family: 'Gothic A1', sans-serif;

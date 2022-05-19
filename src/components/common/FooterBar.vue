@@ -39,6 +39,9 @@ export default {
 </script>
 
 <style scoped>
+div {
+  margin: 2.3vh auto;
+}
 .footer {
   margin: 0 auto;
   width: 100vw;

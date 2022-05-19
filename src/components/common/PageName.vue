@@ -18,6 +18,7 @@ export default {};
 @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
 div {
   margin: 2.3vh auto;
+  position: relative;
 }
 h1 {
   width: 100vw;
@@ -36,6 +37,7 @@ h1 {
 .pencil {
   margin-top: 16px;
   left: 80vw;
+  top: 0;
   position: absolute;
   font-size: 2.4rem;
   color: rgb(245, 109, 145);
@@ -44,6 +46,7 @@ i {
   color: rgb(245, 109, 145);
   position: absolute;
   left: 10vw;
+  top: 0;
   font-size: 3.2rem;
 }
 </style>

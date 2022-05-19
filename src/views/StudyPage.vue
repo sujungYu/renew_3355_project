@@ -4,14 +4,14 @@
       <h1 slot="title">삼삼오오</h1>
       <i
         slot="icon"
-        class="fa-solid fa-arrow-right-from-bracket"
+        bclass="fa-solid fa-arrow-right-from-bracket"
         @click="out"
-      ></i
-      >삼삼오오</page-name
-    >
-
-    <study-list></study-list>
-    <div><i class="fa-solid fa-circle-plus plus" @click="addStudy"></i></div>
+      ></i>
+    </page-name>
+    <div class="studyList-container">
+      <study-list></study-list>
+      <i class="fa-solid fa-circle-plus plus" @click="addStudy"></i>
+    </div>
     <footer-bar></footer-bar>
   </div>
 </template>
@@ -36,11 +36,17 @@ export default {
 
 <style>
 div {
-  margin: 2.3vh auto;
+  /* margin: 2.3vh auto; */
+}
+.studyList-container {
+  position: relative;
+  height: 76vh;
+  overflow: auto;
 }
 .plus {
   position: relative;
   left: 80vw;
+  top: 1vh;
   /* top: 77vh;
   left: 80vw; */
   font-size: 4.5rem;

@@ -1,11 +1,13 @@
 <template>
-  <div class="login">
-    <div class="title">
+  <div class="login-container">
+    <div class="login-header">
       <page-name>
         <h1 slot="title">삼삼오오</h1>
       </page-name>
     </div>
-    <login-form></login-form>
+    <div>
+      <login-form></login-form>
+    </div>
   </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
 </script>
 
 <style>
-.title {
+.login-header {
   padding-top: 20vh;
   /* font-size: 4rem; */
 }

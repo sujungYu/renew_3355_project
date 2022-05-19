@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="typebar">
-      <select v-model="dong" @change="selectDong">
+    <div class="selectDont-container">
+      <select v-model="dong" @change="selectDong" class="selectDong">
         <option value="" disabled hidden>스터디 지역을 선택하세요.</option>
         <option v-for="item in this.dongList" :key="item">
           {{ item }}
@@ -9,11 +9,11 @@
       </select>
     </div>
     <nav>
-      <ul class="menu">
-        <li id="language" name="menu">언어</li>
-        <li id="project" name="menu">프로젝트</li>
-        <li id="certificate" name="menu">자격증</li>
-        <li id="job" name="menu">취업</li>
+      <ul class="type-container">
+        <li id="language" name="type">언어</li>
+        <li id="project" name="type">프로젝트</li>
+        <li id="certificate" name="type">자격증</li>
+        <li id="job" name="type">취업</li>
       </ul>
     </nav>
   </div>
@@ -28,25 +28,28 @@ export default {
     };
   },
   async created() {
-    const user = JSON.parse(localStorage.getItem('user')).id;
-    const area = JSON.parse(localStorage.getItem('area')).dong;
-    await this.$store.dispatch('getDongList', user);
-    await this.$store.dispatch('beforeSelect', area);
-    // this.lists = this.$store.state.Study.homeList;
-    // console.log(this.lists);
+    await this.setStudyHome();
+    // const user = JSON.parse(localStorage.getItem('user')).id;
+    // const area = JSON.parse(localStorage.getItem('area')).dong;
+    // await this.$store.dispatch('getDongList', user);
+    // await this.$store.dispatch('beforeSelect', area);
     this.dongList = this.$store.state.Study.myDongList;
-    console.log(this.dongList);
   },
   mounted() {
-    const menu = document.querySelector('.menu');
-
-    menu.addEventListener('click', e => {
+    const type = document.querySelector('.type-container');
+    type.addEventListener('click', e => {
       const selected = e.target;
       this.changeType(selected.id);
-      this.select(menu, selected);
+      this.select(type, selected);
     });
   },
   methods: {
+    async setStudyHome() {
+      const user = JSON.parse(localStorage.getItem('user')).id;
+      const area = JSON.parse(localStorage.getItem('area')).dong;
+      await this.$store.dispatch('beforeSelect', area);
+      await this.$store.dispatch('getDongList', user);
+    },
     selectDong() {
       this.$store.dispatch('beforeSelect', this.dong);
     },
@@ -70,16 +73,18 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&display=swap');
-.typebar {
+.selectDont-container {
+  margin: 0 auto;
+  margin-bottom: 1vh;
   width: 86vw;
 }
-select {
+.selectDong {
   height: 4vh;
   width: 86vw;
   border: 2px solid rgb(245, 109, 145);
   border-radius: 5px;
 }
-.menu {
+.type-container {
   margin: 0 auto;
   height: 4vh;
   width: 86vw;
@@ -101,10 +106,10 @@ ul li {
   font-family: 'Gothic A1', sans-serif;
   font-weight: bold;
 }
-.menu li:hover {
+.type-container li:hover {
   color: rgb(245, 109, 145);
 }
-.menu li.selected {
+.type-container li.selected {
   color: rgb(245, 109, 145);
 }
 </style>

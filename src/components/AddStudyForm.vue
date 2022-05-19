@@ -54,7 +54,7 @@
 <script>
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-import { addStudy } from '@/api/index.js';
+import { addStudy, addMembersForm } from '@/api/index.js';
 export default {
   components: { DatePicker },
   data() {
@@ -131,6 +131,16 @@ export default {
         manager: JSON.parse(localStorage.getItem('user')).userId,
         // gungu: this.gungu,
       };
+      const membersInfo = {
+        title: this.title,
+        user: [
+          {
+            name: JSON.parse(localStorage.getItem('user')).userId,
+            manager: true,
+          },
+        ],
+      };
+      addMembersForm(membersInfo);
       addStudy(newStudy);
       this.$router.go(-1);
     },

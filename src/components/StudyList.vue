@@ -1,16 +1,18 @@
 <template>
   <div>
-    <study-type-bar></study-type-bar>
-    <hr
-      style="width:86vw; height:1px; border:none; background-color:rgb(223, 223, 222);"
-    />
-    <ul v-for="list in getStudyLists" :key="list.title">
-      <li>
-        <router-link :to="`study/${list.type}/${list.id}`">
-          <div class="list">{{ list.title }}</div>
-        </router-link>
-      </li>
-    </ul>
+    <div>
+      <study-type-bar></study-type-bar>
+      <hr class="studyList-hr" />
+    </div>
+    <div>
+      <ul v-for="list in getStudyLists" :key="list.title">
+        <li>
+          <router-link :to="`study/${list.type}/${list.id}`">
+            <div class="list">{{ list.title }}</div>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -56,16 +58,20 @@ li {
   border-left: 0;
   border-right: 0;
 }
+a {
+  text-decoration: none;
+}
 .list {
   margin: 0;
   line-height: 14vh;
   font-size: 2rem;
   color: rgb(63, 51, 81);
 }
-a {
-  text-decoration: none;
-}
-hr {
+.studyList-hr {
+  width: 86vw;
+  height: 1px;
+  border: none;
+  background-color: rgb(223, 223, 222);
   margin: 0 auto;
   margin-top: 1vh;
 }

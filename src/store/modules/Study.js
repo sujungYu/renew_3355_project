@@ -17,6 +17,7 @@ const Study = {
     month: '',
     day: '',
     myDongList: [],
+    chatRooms: [],
   },
   mutations: {
     addAttend(state, payload) {
@@ -69,6 +70,9 @@ const Study = {
     dongList(state, payload) {
       state.myDongList = payload;
     },
+    ChatRoomList(state, payload) {
+      state.chatRooms = payload;
+    },
   },
   actions: {
     async setStudy({ commit }, payload) {
@@ -104,7 +108,7 @@ const Study = {
         });
     },
     async setAttend({ commit }, payload) {
-      await axios.get(`${'http://localhost:8001'}/users`).then(res => {
+      await axios.get(`${'http://localhost:8005'}/member`).then(res => {
         const filterInfo = [];
         res.data.filter(e => {
           // console.log(e);
@@ -122,12 +126,11 @@ const Study = {
       // eslint-disable-next-line prettier/prettier
       await axios.get(`${'http://localhost:8000'}/user?id=${payload}`).then(res=> {
           commit('dongList', res.data[0].dongList);
-          console.log(res.data);
+          // console.log(JSON.stringify(res.datadongList);
         });
     },
     async beforeSelect({ commit }, payload) {
       const lists = [];
-      // const area = JSON.parse(localStorage.getItem('area'));
       // eslint-disable-next-line prettier/prettier
     await axios.get(`${'http://localhost:8001'}/language?dong=${payload}`).then(res => {
           res.data.filter(e => {
@@ -214,6 +217,20 @@ const Study = {
             }
           });
         });
+    },
+    async findChatRoom({ commit }, payload) {
+      const chatRoom = [];
+      // eslint-disable-next-line prettier/prettier
+      await axios.get(`${'http://localhost:8003'}/chat`).then(res=> {
+        res.data.filter(e => {
+          if (e.guest == payload || e.host == payload) {
+            return chatRoom.push(e);
+          }
+        });
+        // chatRoom.push(res.data);
+        console.log(chatRoom);
+        commit('ChatRoomList', chatRoom);
+      });
     },
     // getMyAttend({ commit }, payload) {
     //   // eslint-disable-next-line prettier/prettier
