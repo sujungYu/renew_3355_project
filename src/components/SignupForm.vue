@@ -97,43 +97,6 @@ export default {
         select2.appendChild(opt);
       }
     },
-    // 수정 필요(코드 반복)
-    // selectSiArea() {
-    //   const select1 = document.getElementById('select1');
-    //   const select2 = document.getElementById('select2');
-
-    //   const siArea = select1.options[select1.selectedIndex].value;
-    //   const guArea = koreaRegion[siArea];
-
-    //   select2.options.length = 0;
-
-    //   for (let i in guArea) {
-    //     let opt = document.createElement('option');
-    //     opt.value = guArea[i];
-    //     opt.text = guArea[i];
-
-    //     select2.appendChild(opt);
-    //   }
-    // },
-    // // 수정 필요(코드 반복)
-    // selectGuArea() {
-    //   const select2 = document.getElementById('select2');
-    //   const select3 = document.getElementById('select3');
-
-    //   const guArea = select2.options[select2.selectedIndex].value;
-    //   const dongArea = koreaRegion[guArea];
-    //   console.log(dongArea);
-
-    //   select3.options.length = 0;
-
-    //   for (let i in dongArea) {
-    //     let opt = document.createElement('option');
-    //     opt.value = dongArea[i];
-    //     opt.text = dongArea[i];
-
-    //     select3.appendChild(opt);
-    //   }
-    // },
   },
 };
 </script>

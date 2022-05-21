@@ -34,16 +34,20 @@ export default {
       user: '',
     };
   },
-  async created() {
-    this.user = JSON.parse(localStorage.getItem('user')).userId;
-    const info = {
-      type: this.$route.params.type,
-      id: this.$route.params.id,
-    };
-    await this.$store.dispatch('setStudy', info);
-    this.study = this.$store.state.Study.studyInfo;
+  created() {
+    this.setDetailStudy();
   },
   methods: {
+    async setDetailStudy() {
+      this.user = JSON.parse(localStorage.getItem('user')).userId;
+      const info = {
+        type: this.$route.params.type,
+        id: this.$route.params.id,
+      };
+      await this.$store.dispatch('setStudy', info);
+      this.study = this.$store.state.Study.studyInfo;
+    },
+
     chat(title, manager) {
       let params = new URLSearchParams();
       params.append('name', title);

@@ -19,7 +19,10 @@
     >
       <div v-for="(index, item) in users" :key="item" class="user">
         <h2>
-          {{ index }}
+          <div class="name-container">
+            {{ index }}
+            <!-- <hr class="name-hr" /> -->
+          </div>
           <div class="select" @change="attendCheck(index, item)">
             <input type="radio" id="select1" :name="index" value="출석" />
             <label for="select1">출석</label>
@@ -28,14 +31,11 @@
             <input type="radio" id="select3" :name="index" value="결석" />
             <label for="select3">결석</label>
           </div>
-          <!-- <div class="button-container">
-            <button id="attend" @click="check('출석', user)">출석</button>
-            <button id="late" @click="check('지각', user)">지각</button>
-            <button id="absence" @click="check('결석', user)">결석</button>
-          </div> -->
         </h2>
       </div>
-      <button @click="check">완료</button>
+      <div class="button-container">
+        <button @click="check">완료</button>
+      </div>
     </template>
 
     <template v-else-if="attend != 0">
@@ -69,19 +69,7 @@ export default {
     };
   },
   async created() {
-    this.studyName = localStorage.getItem('study');
-    const getUsers = JSON.parse(localStorage.getItem('studyUser'));
-    getUsers.filter(e => {
-      this.users.push(e.name);
-    });
-    // console.log(this.users);
-    // const id = this.$store.state.Bulletin.attendId;
-    await this.$store.dispatch('getAttend', this.studyName);
-    const today = new Date();
-    this.year = today.getFullYear();
-    this.month = ('0' + (today.getMonth() + 1)).slice(-2);
-    this.day = ('0' + today.getDate()).slice(-2);
-    // this.init();
+    await this.setAttendMember();
   },
   computed: {
     attend() {
@@ -93,6 +81,19 @@ export default {
     },
   },
   methods: {
+    async setAttendMember() {
+      const today = new Date();
+      this.year = today.getFullYear();
+      this.month = ('0' + (today.getMonth() + 1)).slice(-2);
+      this.day = ('0' + today.getDate()).slice(-2);
+      this.studyName = localStorage.getItem('study');
+
+      const getUsers = JSON.parse(localStorage.getItem('studyUser'));
+      getUsers.filter(e => {
+        this.users.push(e.name);
+      });
+      await this.$store.dispatch('getAttend', this.studyName);
+    },
     attendCheck(index, item) {
       this.checkmember = index;
       const sl = document.getElementsByName(index).length;
@@ -110,20 +111,6 @@ export default {
           attend: this.checkattend,
         }),
       );
-
-      // this.checkattend = document.getElementsByName(item)[i].value;
-      //  const attendInfo = {
-      //   name: user,
-      //   attend: check,
-      //   createdAt:
-      //     this.$store.state.Study.year +
-      //     '-' +
-      //     this.$store.state.Study.month +
-      //     '-' +
-      //     this.$store.state.Study.day,
-      //   studyName: this.studyName,
-      // };
-      // studyAttend(attendInfo);
     },
     check() {
       for (var i = 0; i < this.users.length; i++) {
@@ -138,25 +125,9 @@ export default {
             this.$store.state.Study.day,
           studyName: this.studyName,
         };
-        console.log(attendInfo);
         studyAttend(attendInfo);
         localStorage.removeItem(i);
       }
-      console.log(this.attendInfo);
-      // this.init();
-      // const attendInfo = {
-      //   name: this.checkmember,
-      //   attend: this.checkattend,
-      //   createdAt:
-      //     this.$store.state.Study.year +
-      //     '-' +
-      //     this.$store.state.Study.month +
-      //     '-' +
-      //     this.$store.state.Study.day,
-      //   studyName: this.studyName,
-      // };
-      // studyAttend(attendInfo);
-      // this.$router.go(); //새로고침
     },
   },
 };
@@ -178,27 +149,46 @@ export default {
 }
 .user {
   font-family: 'Gothic A1', sans-serif;
-  margin: 2vh auto;
+  /* margin: 2vh auto; */
   width: 88vw;
   text-align: center;
 }
-button {
-  width: 17vw;
+.button-container {
+  text-align: center;
+}
+
+input[type='radio'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-left: 4vw;
   border: 1px solid rgb(245, 109, 145);
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+}
+input[type='radio']:checked {
+  background-color: rgb(245, 109, 145);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+}
+button {
+  font-family: 'Gothic A1', sans-serif;
+  width: 60vw;
+  height: 5vh;
+  font-size: 1.5em;
+  font-weight: 600;
+  border: 2px solid rgb(245, 109, 145);
   background-color: white;
   border-radius: 10px;
-  /* justify-content: space-between; */
+  color: rgb(245, 109, 145);
 }
 button:focus {
-  background-color: pink;
-}
-.button-container {
-  /* font-family: 'Sunflower', sans-serif; */
-  display: inline-block;
-  /* display: flex; */
-  width: 61vw;
-
-  /* justify-content: space-between; */
+  background-color: rgb(245, 109, 145);
+  color: white;
 }
 .member-attend {
   font-family: 'Sunflower', sans-serif;
@@ -218,4 +208,24 @@ li {
   font-family: 'Sunflower', sans-serif;
   font-size: 2.5em;
 }
+.name-container {
+  margin: 0 auto;
+  margin-bottom: 1vh;
+  font-size: 1.4em;
+  font-family: 'Sunflower', sans-serif;
+  border: 1px solid rgb(245, 109, 145);
+  width: 60vw;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+/* .name-container {
+}
+.name-hr {
+  border: none;
+  margin-top: 0;
+  width: 50vw;
+  height: 1px;
+  background-color: rgb(245, 109, 145);
+} */
 </style>

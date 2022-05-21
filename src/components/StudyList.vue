@@ -21,22 +21,12 @@
 import StudyTypeBar from './StudyTypeBar.vue';
 export default {
   components: { StudyTypeBar },
-  // data() {
-  //   return {
-  //     lists: [],
-  //   };
-  // },
   computed: {
     getStudyLists() {
       // console.log(this.$store.state.Study.homeList);
       return this.$store.state.Study.homeList;
     },
   },
-  // async created() {
-  //   await this.$store.dispatch('beforeSelect');
-  //   this.lists = this.$store.state.Study.homeList;
-  //   // console.log(this.lists);
-  // },
 };
 </script>
 

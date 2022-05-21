@@ -52,27 +52,24 @@ function addMembersForm(payload) {
   return axios.post(`${studyMembersURL.baseUrl}/member`, payload);
 }
 function addMembers(payload) {
+  console.log(payload);
   const memberInfo = {
     name: payload.member,
     manager: false,
   };
   // eslint-disable-next-line prettier/prettier
   axios.get(`${studyMembersURL.baseUrl}/member?title=${payload.title}`).then(res=> {
-
+      console.log(res.data);
       const userList = res.data[0].user;
-      console.log(memberInfo);
-      console.log(userList);
       console.log(userList.concat(memberInfo));
       // eslint-disable-next-line prettier/prettier
       return axios.patch(`${studyMembersURL.baseUrl}/member/${res.data[0].id}`, { "user": userList.concat(memberInfo) });
     });
-  // console.log(payload.title);
-  // const memberInfo = {
-  //   name: payload.member,
-  //   manager: false,
-  // };
-  // eslint-disable-next-line prettier/prettier
-  // return axios.patch(`${studyMembersURL.baseUrl}/member/${payload.title}`,{ "user": [payload.member] });
+}
+function renewArea(payload) {
+  axios.patch(`${userURL.baseUrl}/user/${payload.userId}`, {
+    area: payload.area,
+  });
 }
 export {
   signUp,
@@ -84,4 +81,5 @@ export {
   deleteChaMessages,
   addMembersForm,
   addMembers,
+  renewArea,
 };

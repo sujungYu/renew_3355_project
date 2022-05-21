@@ -1,9 +1,16 @@
 <template>
   <div class="container">
-    <h3><i class="fa-solid fa-location-crosshairs"></i>&nbsp;동네 재설정</h3>
+    <h3>
+      <i class="fa-solid fa-location-crosshairs"></i>&nbsp;동네 재설정<i
+        class="fa-solid fa-circle-check check"
+        @click="changeArea"
+      ></i>
+    </h3>
+
     <hr
       style="width:80vw; height:1px; border:none; background-color:rgb(245, 109, 145);"
     />
+
     <div class="select">
       <select
         id="select1"
@@ -47,7 +54,7 @@
 
 <script>
 import koreaRegion from '@/assets/koreaRegion.json';
-import { addArea } from '@/api/index.js';
+import { addArea, renewArea } from '@/api/index.js';
 export default {
   data() {
     return {
@@ -97,6 +104,13 @@ export default {
       };
       addArea(areaInfo);
     },
+    changeArea() {
+      const changeInfo = {
+        userId: JSON.parse(localStorage.getItem('user')).id,
+        area: { si: this.si, gungu: this.gungu, dong: this.dong },
+      };
+      renewArea(changeInfo);
+    },
   },
 };
 </script>
@@ -105,6 +119,10 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
 .container {
   margin-top: 2vh;
+}
+.check {
+  float: right;
+  font-size: 1.2em;
 }
 h2 {
   font-family: 'Sunflower', sans-serif;

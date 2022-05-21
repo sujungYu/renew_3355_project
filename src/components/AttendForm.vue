@@ -25,7 +25,6 @@
         <template v-slot:title>
           스터디 출석부
         </template>
-
         <template v-slot:attend> {{ attend }}회 </template>
         <template v-slot:late> {{ late }}회 </template>
         <template v-slot:absence> {{ absence }}회 </template>
@@ -49,15 +48,6 @@ export default {
       // onlyName: [],
     };
   },
-  created() {
-    this.getMyStudyLists();
-    // this.user = JSON.parse(localStorage.getItem('user')).userId;
-    // await this.$store.dispatch('setAttend', this.user);
-    // this.myStudys = this.$store.state.Study.myStudyList;
-    // this.myStudys.filter(e => {
-    //   return this.studyNames.push(e.title);
-    // });
-  },
   computed: {
     attend() {
       return this.$store.state.Study.attendNum;
@@ -78,17 +68,26 @@ export default {
       return this.$store.state.Study.MyAbsenceNum;
     },
   },
-  // computed: {
-  //   attendCheck() {
-  //     return this.$store.state.Study.attendList;
-  //   },
-  // },
+  created() {
+    this.setAttendHome();
+  },
   methods: {
     initStudyUsers() {
       this.studyUsers = [];
     },
+    selectMyStudy() {
+      this.initStudyUsers();
+      const selecName = document.getElementById('name');
+      this.selectOption = selecName.options[selecName.selectedIndex].value;
 
-    async getMyStudyLists() {
+      this.getSelectedStudyUsers();
+      this.getSelectedStudyAttend();
+      this.getMyAttend();
+    },
+    check() {
+      this.$router.push('./attend/check');
+    },
+    async setAttendHome() {
       this.user = JSON.parse(localStorage.getItem('user')).userId;
       await this.$store.dispatch('setAttend', this.user);
       this.myStudys = this.$store.state.Study.myStudyList;
@@ -96,7 +95,6 @@ export default {
         return this.studyNames.push(e.title);
       });
     },
-
     async getSelectedStudyAttend() {
       const id = document.getElementById('user');
       const select = id.options[id.selectedIndex].value;
@@ -104,7 +102,6 @@ export default {
         studyUser: select,
         studyName: this.selectOption,
       });
-      // console.log(this.$store.Study.state.lateNum);
     },
 
     getMyAttend() {
@@ -125,34 +122,13 @@ export default {
         // return;
       });
     },
-    // async attendList() {
-    //   await this.$store.dispatch('getAttend', this.selectOption);
-    //   // console.log(this.$store.state.Study.attendList);
-    // },
-    selectMyStudy() {
-      this.initStudyUsers();
-
-      const selecName = document.getElementById('name');
-      this.selectOption = selecName.options[selecName.selectedIndex].value;
-
-      this.getSelectedStudyUsers();
-      this.getSelectedStudyAttend();
-      this.getMyAttend();
-      // this.attendList();
-      // this.$store.dispatch('getAttend', selectOption);
-      // console.log(this.$store.getters.showAttend);
-
-      // console.log(selectOption);
-    },
-    check() {
-      this.$router.push('./attend/check');
-    },
   },
 };
 </script>
 
 <style scoped>
 .container {
+  margin: 0 auto;
   margin-top: 5.5vh;
   width: 86vw;
 }
@@ -163,7 +139,6 @@ export default {
   border: 1px solid rgb(245, 109, 145);
 }
 .attend-check {
-  /* margin-top: 4vh; */
   width: 86vw;
   height: 8vh;
   font-size: 2rem;
@@ -177,5 +152,6 @@ export default {
   left: 71vw;
   border: 1px solid rgb(245, 109, 145);
   height: 3vh;
+  width: 20vw;
 }
 </style>

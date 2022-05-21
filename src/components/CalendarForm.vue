@@ -31,15 +31,7 @@
             <div
               v-if="getMatchedAttend(day).length > 0 && !isPrevDates(day, idx)"
             >
-              <!-- {sfwef} -->
               <i class="fa-solid fa-user user"></i>
-              <!-- <div
-                v-for="(attend, idx) in getMatchedAttend(day)"
-                :key="idx"
-                class="check"
-              >
-                {{ attend.name }}{{ attend.attend }}
-              </div> -->
             </div>
           </td>
         </tr>
@@ -94,16 +86,6 @@ export default {
   },
   created() {
     this.init();
-    // this.$store.commit('initAttend');
-    // let status = false;
-    // if (this.currentYear === 0 && this.currentMonth === 0) {
-    //   status = true;
-    // } else {
-    //   status =
-    //     this.currentYear === new Date().getFullYear() &&
-    //     this.currentMonth === new Date().getMonth() + 1;
-    // }
-    // return status;
   },
   methods: {
     init(param) {
@@ -244,76 +226,7 @@ export default {
         }
       } else {
         attendMonth = this.month;
-        // console.log('지금');
       }
-      // console.log(attendMonth);
-      // this.prevDate.filter(e => {
-      //   console.log(e);
-      //   if (e == day) {
-      //     console.log('이전');
-      //     return (this.attendMonth = attendMonth - 1);
-      //   } else {
-      //     console.log('이후');
-      //     return (this.attendMonth = attendMonth + 1);
-      //   }
-      // });
-
-      // if(idx ==true) {
-      //   for (let i = 0; i < this.prevDate.length; i++) {
-      //     console.log(this.prevDate[0]);
-      //     if (this.prevDate[i] == day) {
-      //       console.log('이전');
-      //       console.log(day);
-      //       this.attendMonth = attendMonth - 1;
-      //       break;
-      //     } else {
-      //       this.attendMonth = attendMonth + 1;
-      //       console.log('이후');
-      //       break;
-      //     }
-      //   }
-      // } else {
-      //   this.attendDay = day;
-      // }
-      // this.prevDate.forEach(e => {
-      //   if (idx == true && e == day) {
-      //     console.log('이전');
-      //     this.attendMonth = attendMonth - 1;
-      //     return false;
-      //   } else if (idx == true && e != day) {
-      //     this.attendMonth = attendMonth + 1;
-      //     console.log('이후');
-      //     return false;
-      //   } else {
-      //     this.attendMonth = this.month;
-      //     console.log('지금');
-      //     return false;
-      //   }
-      // });
-
-      // if(idx == true && this.forEach.)
-      // if (idx == true && this.prevDate.forEach(prevDate => {
-      //     if (prevDate == day) {
-      //       console.log(prevDate);
-      //       console.log('이전');
-      //       this.attendMonth = attendMonth - 1;
-      //       return;
-      //     } else {
-      //       this.attendMonth = attendMonth + 1;
-      //       console.log('이후');
-      //       return;
-      //     }
-      //   })
-      // )
-      //   return;
-      // else {
-      //   this.attendMonth = this.month;
-      //   console.log('지금');
-      //   console.log(this.attendMonth);
-      // }
-
-      // console.log(this.prevDate);
-
       this.showModal = !this.showModal;
       await this.$store.commit('clickDate', {
         year: attendYear,
@@ -361,32 +274,14 @@ h2 {
   width: 70vw;
   margin-bottom: 7vh;
   margin-top: 5vh;
-  /* height: 1vh; */
-  /* height: 1vh; */
-  /* position: relative; */
-  /* justify-content: center;
-  text-align: center; */
-  /* padding: 0 auto; */
 }
 .arrowLeft {
   font-size: 3rem;
   color: rgb(82, 74, 78);
-  /* position: absolute;
-  justify-content: center;
-  left: 10vw;
-  top: -0.4vh;
-  font-size: 2.5rem;
-  color: rgb(28, 31, 34); */
 }
 .arrowRight {
   font-size: 3rem;
   color: rgb(82, 74, 78);
-  /* position: absolute;
-  justify-content: center;
-  right: 10vw;
-  bottom: -0.5vh;
-  font-size: 2.5rem;
-  color: rgb(28, 31, 34); */
 }
 .back {
   left: 6vw;
@@ -398,15 +293,10 @@ table {
   text-align: center;
   border-collapse: collapse;
   width: 90vw;
-  /* height: 70vh; */
   font-family: 'Gothic A1', sans-serif;
   font-size: 1.25em;
   table-layout: fixed;
-  /* word-break: break-all; */
 }
-/* i {
-  margin: 0;
-} */
 th {
   border-bottom: 0.5px solid rgba(141, 141, 170, 0.5);
 }
@@ -425,29 +315,16 @@ th:nth-child(7) {
 .pointer {
   cursor: pointer;
 }
-/* .rounded {
-  -moz-border-radius: 20px 20px 20px 20px;
-  border-radius: 20px 20px 20px 20px;
-  border: solid 1px #ffffff;
-  background-color: #2b6bd1;
-  padding: 10px;
-  color: #ffffff;
-} */
 .prev-dates {
   color: lightgray;
-  /* background: none; */
 }
 .selected-date {
   background-color: rgb(245, 109, 145);
 }
 .user {
-  /* height: 5vh; */
   line-height: 5vh;
   text-align: center;
   color: rgb(245, 109, 145);
   font-size: 1.5em;
 }
-/* .check {
-  color: red;
-} */
 </style>

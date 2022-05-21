@@ -2,7 +2,7 @@
   <div>
     <page-name>
       <h1 slot="title">게시물</h1>
-      <i slot="icon" class="fa-solid fa-arrow-left-long back" @click="back"></i>
+      <i slot="icon" class="fa-solid fa-chevron-left" @click="back"></i>
     </page-name>
     <detail-study-form></detail-study-form>
   </div>

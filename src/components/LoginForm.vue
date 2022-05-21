@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400&display=swap');
 div {
   text-align: center;
 }
@@ -58,7 +58,7 @@ input::placeholder {
   border-radius: 10px;
   width: 86vw;
   height: 9vh;
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   background-color: rgb(245, 109, 145);
   color: white;
   font-family: 'Gothic A1', sans-serif;

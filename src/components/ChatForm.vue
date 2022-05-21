@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <page-name>
       <h1 slot="title">{{ room.roomName }}</h1>
       <i slot="icon" class="fa-solid fa-chevron-left" @click="back"></i>
@@ -20,7 +20,7 @@
         </template>
         <template v-else-if="item.type == 'ENTER'">
           <div class="center">
-            <li>{{ item.sender }} - {{ item.message }}</li>
+            <li>{{ item.message }}</li>
           </div>
         </template>
         <template v-else>
@@ -37,12 +37,15 @@
         </template>
       </ul>
     </div>
-    <div class="text-input">
-      <input type="text" />
-      <span class="send">
-        <i class="fa-solid fa-location-arrow arrow"></i>
-      </span>
+    <div class="text-container">
+      <div class="text-input">
+        <input type="text" />
+        <span class="send">
+          <i class="fa-solid fa-location-arrow arrow"></i>
+        </span>
+      </div>
     </div>
+
     <!-- <div id="app" v-cloak>
       <div>
         <h2>{{ room.roomName }}</h2>
@@ -177,27 +180,40 @@ export default {
 };
 </script>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+.text-container {
+  width: 90vw;
+  margin: 0 auto;
+  /* width: 0;
+  height: 0; */
+  /* height: 8vh; */
+  text-align: center;
+}
 .text-input {
   position: fixed;
+  bottom: 2vh;
+  height: 6vh;
+  width: 90vw;
+  margin: 0 auto;
   /* margin: 0 auto; */
-  /* width: 8vw; */
-  bottom: 0;
+  /* width: 8vw; *
+  bottom: 1vh;
   width: 100vw;
-  height: 9vh;
-  text-align: center;
+  /* height: 9vh; */
+  /* text-align: center; */
 }
 input {
   width: 79vw;
   height: 6vh;
   border: 1px solid rgb(245, 109, 145);
   border-radius: 5px 0 0 5px;
-  border-right: none;
+  /* border-right: none; */
 }
 .send {
   height: 6.7vh;
   width: 5vh;
-  /* float: right; */
-  /* display: block; */
+  float: right;
+  display: block;
   background-color: rgb(245, 109, 145);
   border-radius: 0 5px 5px 0;
 }
@@ -215,6 +231,7 @@ input {
   list-style: none;
 }
 li {
+  font-family: 'Gothic A1', sans-serif;
   display: inline-block;
   font-size: 1.2em;
   margin: 1vh auto;

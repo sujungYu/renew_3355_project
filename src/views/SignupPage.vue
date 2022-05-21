@@ -22,10 +22,4 @@ export default {
 };
 </script>
 
-<style>
-/* .out {
-  position: absolute;
-  left: 10vw;
-  font-size: 3.2rem;
-} */
-</style>
+<style></style>

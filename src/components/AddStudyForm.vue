@@ -88,8 +88,6 @@ export default {
         monthFormat: 'MM월',
         monthBeforeYear: false,
       },
-
-      //   value2: [],
     };
   },
   methods: {
@@ -129,7 +127,6 @@ export default {
         gungu: area.gungu,
         dong: area.dong,
         manager: JSON.parse(localStorage.getItem('user')).userId,
-        // gungu: this.gungu,
       };
       const membersInfo = {
         title: this.title,

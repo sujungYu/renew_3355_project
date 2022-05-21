@@ -2,26 +2,23 @@
   <div>
     <ul v-for="(item, index) in chatrooms" :key="index">
       <li>
-        <i
-          class="fa-solid fa-face-smile smile"
-          @click="enterRoom(item.roomId)"
-        ></i>
+        <i class="fa-solid fa-face-smile smile"></i>
         <i
           class="fa-solid fa-circle-minus delete"
           @click="deleteRoom(item.roomId)"
         ></i>
         <template v-if="user == item.host">
-          <div class="chat-name">
+          <div class="chat-name" @click="enterRoom(item.roomId)">
             <h3>{{ item.roomName }}</h3>
             <h2>{{ item.guest }}</h2>
-            <i
-              class="fa-solid fa-user-plus plus"
-              @click="addMember(item.roomName, item.guest)"
-            ></i>
           </div>
+          <i
+            class="fa-solid fa-user-plus plus"
+            @click="addMember(item.roomName, item.guest)"
+          ></i>
         </template>
         <template v-else>
-          <div class="chat-name">
+          <div class="chat-name" @click="enterRoom(item.roomId)">
             <h3>{{ item.roomName }}</h3>
             <h2>{{ item.host }}</h2>
           </div>
@@ -42,7 +39,7 @@
 
 <script>
 // import axios from 'axios';
-import { deleteChatRoom, addMembers } from '@/api/index.js';
+import { deleteChatRoom, addMembers, deleteChaMessages } from '@/api/index.js';
 export default {
   data() {
     return {
@@ -53,7 +50,6 @@ export default {
     };
   },
   async created() {
-    // this.$router.go();
     this.user = JSON.parse(localStorage.getItem('user')).userId;
     // console.log(this.user);
     await this.$store.dispatch('findChatRoom', this.user);
@@ -85,9 +81,9 @@ export default {
         location.href = '/chat/room/enter/' + roomId;
       }
     },
-    deleteRoom() {
-      deleteChatRoom();
-      // deleteChaMessages(roomId);
+    deleteRoom(roomId) {
+      deleteChatRoom(roomId);
+      deleteChaMessages(roomId);
       // axios.delete('/chat/roominfo?roomId=' + roomId);
       // axios.delete('/chat/messages?roomId=' + roomId);
     },
@@ -113,9 +109,10 @@ ul {
   list-style-type: none;
 }
 li {
+  position: relative;
   margin: 0 auto;
   border: 1px solid rgb(223, 223, 222);
-  width: 86vw;
+  width: 85vw;
   height: 12vh;
   border-top: 0;
   border-left: 0;
@@ -128,22 +125,32 @@ li {
   color: rgb(141, 141, 170);
 }
 .delete {
-  position: relative;
+  position: absolute;
   top: 3vh;
+  left: 80vw;
   line-height: 12vh;
   font-size: 2em;
   float: right;
   color: rgb(141, 141, 170);
 }
 .chat-name {
-  width: 86vw;
+  position: relative;
+  width: 70vw;
   /* line-height: 14vh; */
   font-family: 'Gothic A1', sans-serif;
   text-align: center;
 }
+.plus {
+  position: absolute;
+  font-size: 2em;
+  float: right;
+  top: 0;
+  left: 80vw;
+  color: rgb(141, 141, 170);
+}
 h2 {
   margin: 0 auto;
-
+  /* display: inline-block; */
   /* margin: 0; */
   /* padding-top: 1vh; */
   font-size: 2.3em;

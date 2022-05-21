@@ -29,10 +29,6 @@ export default {
   },
   async created() {
     await this.setStudyHome();
-    // const user = JSON.parse(localStorage.getItem('user')).id;
-    // const area = JSON.parse(localStorage.getItem('area')).dong;
-    // await this.$store.dispatch('getDongList', user);
-    // await this.$store.dispatch('beforeSelect', area);
     this.dongList = this.$store.state.Study.myDongList;
   },
   mounted() {
@@ -62,6 +58,9 @@ export default {
       }
     },
     async changeType(type) {
+      if (this.dong == '') {
+        return (this.dong = JSON.parse(localStorage.getItem('area')).dong);
+      }
       await this.$store.dispatch('afterSelect', {
         type: type,
         dong: this.dong,
@@ -75,7 +74,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&display=swap');
 .selectDont-container {
   margin: 0 auto;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
   width: 86vw;
 }
 .selectDong {

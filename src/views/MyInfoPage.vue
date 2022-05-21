@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style>
-div {
+/* div {
   margin: 2.3vh auto;
-}
+} */
 </style>

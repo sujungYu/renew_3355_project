@@ -4,7 +4,7 @@
       <h1 slot="title">삼삼오오</h1>
       <i
         slot="icon"
-        bclass="fa-solid fa-arrow-right-from-bracket"
+        class="fa-solid fa-arrow-right-from-bracket"
         @click="out"
       ></i>
     </page-name>
@@ -35,9 +35,9 @@ export default {
 </script>
 
 <style>
-div {
-  /* margin: 2.3vh auto; */
-}
+/* div {
+  margin: 2.3vh auto;
+} */
 .studyList-container {
   position: relative;
   height: 76vh;

@@ -109,17 +109,15 @@ const Study = {
     },
     async setAttend({ commit }, payload) {
       await axios.get(`${'http://localhost:8005'}/member`).then(res => {
-        const filterInfo = [];
+        const filterMyStudy = [];
         res.data.filter(e => {
-          // console.log(e);
           e.user.filter(d => {
             if (d.name == payload) {
-              return filterInfo.push(e);
+              return filterMyStudy.push(e);
             }
           });
         });
-        // console.log(filterInfo);
-        commit('myStudyList', filterInfo);
+        commit('myStudyList', filterMyStudy);
       });
     },
     async getDongList({ commit }, payload) {
@@ -176,25 +174,37 @@ const Study = {
       commit('initAttend');
       // eslint-disable-next-line prettier/prettier
       await axios.get(`${'http://localhost:8002'}/studyAttend?studyName=${payload.studyName}`)
-        .then(
-          // eslint-disable-next-line prettier/prettier
-      await axios.get(`${'http://localhost:8002'}/studyAttend?name=${payload.studyUser}`)
-            .then(res => {
-              res.data.filter(e => {
-                console.log(e.data);
-                if (e.attend == '출석') {
-                  console.log(e);
-                  commit('attend');
-                } else if (e.attend == '지각') {
-                  console.log(e);
-                  commit('late');
-                } else {
-                  console.log(e);
-                  commit('absence');
-                }
-              });
-            }),
-        );
+        .then(res => {
+          res.data.filter(e => {
+            if (e.name == payload.studyUser) {
+              if (e.attend == '출석') {
+                commit('attend');
+              } else if (e.attend == '지각') {
+                commit('late');
+              } else {
+                commit('absence');
+              }
+            }
+          });
+        });
+
+      // eslint-disable-next-line prettier/prettier
+      // await axios.get(`${'http://localhost:8002'}/studyAttend?name=${payload.studyUser}`)
+      //       .then(res => {
+      //         res.data.filter(e => {
+      //           console.log(e.data);
+      //           if (e.attend == '출석') {
+      //             console.log(e);
+      //             commit('attend');
+      //           } else if (e.attend == '지각') {
+      //             console.log(e);
+      //             commit('late');
+      //           } else {
+      //             console.log(e);
+      //             commit('absence');
+      //           }
+      //         });
+      //       }),
     },
     myAttend({ commit }, payload) {
       commit('initMyAttend');
@@ -205,13 +215,13 @@ const Study = {
             const user = JSON.parse(localStorage.getItem('user')).userId;
             if (e.name == user) {
               if (e.attend == '출석') {
-                console.log(e);
+                // console.log(e);
                 commit('myAttend');
               } else if (e.attend == '지각') {
-                console.log(e);
+                // console.log(e);
                 commit('myLate');
               } else {
-                console.log(e);
+                // console.log(e);
                 commit('myAbsence');
               }
             }

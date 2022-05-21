@@ -3,7 +3,6 @@
     <div>
       <info-line>
         <h2 slot="name">내 프로필</h2>
-        <!-- <i slot="icon" class="fa-solid fa-circle-question"></i> -->
       </info-line>
       <div class="info-container">
         <i class="fa-regular fa-circle-user smile"></i>
@@ -14,16 +13,8 @@
 
     <info-line>
       <h2 slot="name">내 동네 설정</h2>
-      <!-- <i slot="icon" class="fa-solid fa-circle-check" @click="setMyArea"></i> -->
     </info-line>
     <change-area></change-area>
-    <!-- <modal v-show="showModal" :open="showModal" @close="showModal = false">
-      <change-area></change-area>
-    </modal> -->
-    <!-- <info-line>
-      <h2 slot="name">내 게시글</h2>
-      <i slot="icon" class="fa-solid fa-circle-check"></i>
-    </info-line> -->
   </div>
 </template>
 

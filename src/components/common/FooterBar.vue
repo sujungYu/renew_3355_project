@@ -40,12 +40,12 @@ export default {
 
 <style scoped>
 div {
-  margin: 2.3vh auto;
+  margin: 1.3vh auto;
 }
 .footer {
   margin: 0 auto;
   width: 100vw;
-  height: 10vh;
+  height: 8vh;
   padding: 1vh 0;
   display: flex;
   justify-content: space-between;
@@ -53,7 +53,7 @@ div {
   background-color: rgb(245, 109, 145);
   color: white;
   position: fixed;
-  top: 88vh;
+  top: 90vh;
 }
 .icon-container {
   display: inline-block;
