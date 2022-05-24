@@ -208,20 +208,14 @@ export default {
       );
     },
     async clickDate(day, idx) {
-      console.log('2');
-      // console.log(this.previewDate);
-      // console.log(idx);
       const attendYear = this.year;
       let attendMonth = this.month;
       const attendDay = day;
-      // console.log(attendDay);
       // eslint-disable-next-line prettier/prettier
       if(idx) {
         if (this.prevDate.includes(day)) {
-          // console.log('이전');
           attendMonth = attendMonth - 1;
         } else {
-          // console.log('이후');
           attendMonth = attendMonth + 1;
         }
       } else {

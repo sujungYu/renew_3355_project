@@ -155,9 +155,7 @@ const Study = {
       // eslint-disable-next-line prettier/prettier
       await axios.get(`${'http://localhost:8002'}/studyAttend?studyName=${payload}`)
         .then(res => {
-          console.log(res.data);
           commit('addAttend', res.data);
-          console.log('1');
         });
     },
     async teamAttend({ commit }, payload) {
