@@ -4,7 +4,6 @@ const Study = {
   state: {
     myStudyList: [],
     studyInfo: '',
-    // myStudy: [],
     homeList: [],
     attendList: [],
     attendNum: 0,
@@ -18,6 +17,8 @@ const Study = {
     day: '',
     myDongList: [],
     chatRooms: [],
+    area: '',
+    setDong: '',
   },
   mutations: {
     addAttend(state, payload) {
@@ -34,7 +35,6 @@ const Study = {
     },
     attend(state) {
       state.attendNum++;
-      console.log(state.attendNum);
     },
     late(state) {
       state.lateNum++;
@@ -49,7 +49,6 @@ const Study = {
     },
     myAttend(state) {
       state.myAttendNum++;
-      console.log(state.attendNum);
     },
     myLate(state) {
       state.myLateNum++;
@@ -73,6 +72,15 @@ const Study = {
     ChatRoomList(state, payload) {
       state.chatRooms = payload;
     },
+    setArea(state, payload) {
+      state.area = payload;
+    },
+    initArea(state) {
+      state.area = '';
+    },
+    addDong(state, payload) {
+      state.setDong = payload;
+    },
   },
   actions: {
     async setStudy({ commit }, payload) {
@@ -85,18 +93,7 @@ const Study = {
           console.log(err);
         });
     },
-    // async stydyList({ commit }, payload) {
-    //   // eslint-disable-next-line prettier/prettier
-    //   await axios.get(`${'http://localhost:8001'}/${payload}`)
-    //     .then(res => {
-    //       commit('renewList', res.data);
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // },
     async afterSelect({ commit }, payload) {
-      // const area = localStorage.getItem('dong');
       // eslint-disable-next-line prettier/prettier
       await axios.get(`${'http://localhost:8001'}/${payload.type}?dong=${payload.dong}`)
         .then(res => {
@@ -124,7 +121,6 @@ const Study = {
       // eslint-disable-next-line prettier/prettier
       await axios.get(`${'http://localhost:8000'}/user?id=${payload}`).then(res=> {
           commit('dongList', res.data[0].dongList);
-          // console.log(JSON.stringify(res.datadongList);
         });
     },
     async beforeSelect({ commit }, payload) {
@@ -156,17 +152,11 @@ const Study = {
       commit('studyList', lists);
     },
     async getAttend({ commit }, payload) {
-      //해당방ID를 payload로 받음
       // eslint-disable-next-line prettier/prettier
       await axios.get(`${'http://localhost:8002'}/studyAttend?studyName=${payload}`)
         .then(res => {
           console.log(res.data);
           commit('addAttend', res.data);
-          // for (let i = 0; i < res.data.length; i++) {
-          //   console.log(i);
-          //   console.log(res.data);
-          //   commit('addAttend', res.data[i]);
-          // }
           console.log('1');
         });
     },
@@ -187,24 +177,6 @@ const Study = {
             }
           });
         });
-
-      // eslint-disable-next-line prettier/prettier
-      // await axios.get(`${'http://localhost:8002'}/studyAttend?name=${payload.studyUser}`)
-      //       .then(res => {
-      //         res.data.filter(e => {
-      //           console.log(e.data);
-      //           if (e.attend == '출석') {
-      //             console.log(e);
-      //             commit('attend');
-      //           } else if (e.attend == '지각') {
-      //             console.log(e);
-      //             commit('late');
-      //           } else {
-      //             console.log(e);
-      //             commit('absence');
-      //           }
-      //         });
-      //       }),
     },
     myAttend({ commit }, payload) {
       commit('initMyAttend');
@@ -215,13 +187,10 @@ const Study = {
             const user = JSON.parse(localStorage.getItem('user')).userId;
             if (e.name == user) {
               if (e.attend == '출석') {
-                // console.log(e);
                 commit('myAttend');
               } else if (e.attend == '지각') {
-                // console.log(e);
                 commit('myLate');
               } else {
-                // console.log(e);
                 commit('myAbsence');
               }
             }
@@ -238,17 +207,9 @@ const Study = {
           }
         });
         // chatRoom.push(res.data);
-        console.log(chatRoom);
         commit('ChatRoomList', chatRoom);
       });
     },
-    // getMyAttend({ commit }, payload) {
-    //   // eslint-disable-next-line prettier/prettier
-    //   axios.get(`${'http://localhost:8002'}/studyAttend?studyName=${payload.select}`)
-    //   .then(res => {
-    //       console.log(res.data);
-    //     });
-    // },
   },
   getters: {
     showAttend: state => {

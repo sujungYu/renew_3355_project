@@ -3,10 +3,7 @@
     <slot name="title"></slot>
     <slot name="icon" class="icon"></slot>
     <i class="fa fa-pencil pencil "></i>
-    <hr
-      class="hr"
-      style="width:88vw; height:2px; border:none; background-color:rgb(245, 109, 145);"
-    />
+    <hr class="page-name-hr" />
   </div>
 </template>
 
@@ -30,9 +27,13 @@ h1 {
   font-size: 3.6rem;
   color: rgb(245, 109, 145);
 }
-.hr {
+.page-name-hr {
   position: relative;
   margin: 0 auto;
+  width: 88vw;
+  height: 2px;
+  border: none;
+  background-color: rgb(245, 109, 145);
 }
 .pencil {
   margin-top: 16px;

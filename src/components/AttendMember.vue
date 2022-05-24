@@ -1,55 +1,57 @@
 <template>
   <div>
-    <h1 class="title">{{ studyName }}</h1>
-    <hr
-      style="width:80vw; height:2px; border:none; background-color:rgb(245, 109, 145);"
-    />
-    <p class="today">
-      {{ this.$store.state.Study.year }}.{{ this.$store.state.Study.month }}.{{
-        this.$store.state.Study.day
-      }}
-    </p>
-    <template
-      v-if="
-        attend == 0 &&
-          this.year == this.$store.state.Study.year &&
-          this.month == this.$store.state.Study.month &&
-          this.day == this.$store.state.Study.day
-      "
-    >
-      <div v-for="(index, item) in users" :key="item" class="user">
-        <h2>
-          <div class="name-container">
-            {{ index }}
-            <!-- <hr class="name-hr" /> -->
-          </div>
-          <div class="select" @change="attendCheck(index, item)">
-            <input type="radio" id="select1" :name="index" value="출석" />
-            <label for="select1">출석</label>
-            <input type="radio" id="select2" :name="index" value="지각" />
-            <label for="select2">지각</label>
-            <input type="radio" id="select3" :name="index" value="결석" />
-            <label for="select3">결석</label>
-          </div>
-        </h2>
-      </div>
-      <div class="button-container">
-        <button @click="check">완료</button>
-      </div>
-    </template>
+    <div>
+      <h1 class="title">{{ studyName }}</h1>
+      <hr class="attend-member-hr" />
+      <p class="today">
+        {{ this.$store.state.Study.year }}.{{
+          this.$store.state.Study.month
+        }}.{{ this.$store.state.Study.day }}
+      </p>
+    </div>
+    <div>
+      <template
+        v-if="
+          attend == 0 &&
+            this.year == this.$store.state.Study.year &&
+            this.month == this.$store.state.Study.month &&
+            this.day == this.$store.state.Study.day
+        "
+      >
+        <div v-for="(index, item) in users" :key="item" class="user">
+          <h2>
+            <div class="name-container">
+              {{ index }}
+              <!-- <hr class="name-hr" /> -->
+            </div>
+            <div class="select" @change="attendCheck(index, item)">
+              <input type="radio" id="select1" :name="index" value="출석" />
+              <label for="select1">출석</label>
+              <input type="radio" id="select2" :name="index" value="지각" />
+              <label for="select2">지각</label>
+              <input type="radio" id="select3" :name="index" value="결석" />
+              <label for="select3">결석</label>
+            </div>
+          </h2>
+        </div>
+        <div class="button-container">
+          <button @click="check">완료</button>
+        </div>
+      </template>
 
-    <template v-else-if="attend != 0">
-      <ul class="member-attend">
-        <li v-for="(item, index) in attend" :key="index">
-          <i class="fa-regular fa-square-check"></i>&nbsp;&nbsp;
-          {{ item.name }} -
-          {{ item.attend }}
-        </li>
-      </ul>
-    </template>
-    <template v-else>
-      <h2 class="none">출석이 없습니다.</h2>
-    </template>
+      <template v-else-if="attend != 0">
+        <ul class="member-attend">
+          <li v-for="(item, index) in attend" :key="index">
+            <i class="fa-regular fa-square-check"></i>&nbsp;&nbsp;
+            {{ item.name }} -
+            {{ item.attend }}
+          </li>
+        </ul>
+      </template>
+      <template v-else>
+        <h2 class="none">출석이 없습니다.</h2>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -218,6 +220,12 @@ li {
   border-top: none;
   border-right: none;
   border-left: none;
+}
+.attend-member-hr {
+  width: 80vw;
+  height: 2px;
+  border: none;
+  background-color: rgb(245, 109, 145);
 }
 /* .name-container {
 }

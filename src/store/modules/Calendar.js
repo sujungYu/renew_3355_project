@@ -20,9 +20,6 @@ const Calendar = {
     studyUser(state, payload) {
       state.checkUser = payload;
     },
-    // initAttend(state) {
-    //   state.attend = [];
-    // },
   },
   actions: {},
   getters: {},

@@ -1,13 +1,9 @@
 <template>
   <div>
     <h2>{{ this.study.title }}</h2>
-    <hr
-      style="width:86vw; height:1px; border:none; background-color:rgb(223, 223, 222);"
-    />
+    <hr class="detail-study-hr" />
     <h3 class="term">기간 : {{ this.study.start }} ~ {{ this.study.end }}</h3>
-    <hr
-      style="width:86vw; height:1px; border:none; background-color:rgb(223, 223, 222);"
-    />
+    <hr class="detail-study-hr" />
     <h4>{{ this.study.si }} {{ this.study.dong }}</h4>
     <h3>{{ this.study.rule }}</h3>
     <h5 class="go-chat">
@@ -17,11 +13,7 @@
         @click="chat(this.study.title, this.study.manager)"
       ></i>
     </h5>
-
-    <hr
-      class="end"
-      style="width:86vw; height:1px; border:none; background-color:rgb(223, 223, 222);"
-    />
+    <hr class="detail-study-hr end" />
   </div>
 </template>
 
@@ -115,5 +107,11 @@ span {
 }
 .chat {
   font-size: 3.5rem;
+}
+.detail-study-hr {
+  width: 86vw;
+  height: 1px;
+  border: none;
+  background-color: rgb(223, 223, 222);
 }
 </style>

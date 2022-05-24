@@ -24,7 +24,7 @@ export default {
   components: { PageName, StudyList, FooterBar },
   methods: {
     out() {
-      localStorage.removeItem('user');
+      localStorage.clear();
       this.$router.push('/login');
     },
     addStudy() {

@@ -21,6 +21,7 @@ export default {
 
 <style>
 .login-header {
+  margin: 0 auto;
   padding-top: 20vh;
   /* font-size: 4rem; */
 }

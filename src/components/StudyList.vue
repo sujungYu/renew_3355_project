@@ -23,7 +23,6 @@ export default {
   components: { StudyTypeBar },
   computed: {
     getStudyLists() {
-      // console.log(this.$store.state.Study.homeList);
       return this.$store.state.Study.homeList;
     },
   },

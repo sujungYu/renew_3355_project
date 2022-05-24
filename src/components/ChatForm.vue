@@ -39,9 +39,9 @@
     </div>
     <div class="text-container">
       <div class="text-input">
-        <input type="text" />
+        <input type="text" v-model="message" @keypress.enter="sendMessage" />
         <span class="send">
-          <i class="fa-solid fa-location-arrow arrow"></i>
+          <i class="fa-solid fa-location-arrow arrow" @click="sendMessage"></i>
         </span>
       </div>
     </div>
@@ -96,7 +96,6 @@ export default {
       axios.get(`${'http://localhost:8003'}/chat?roomId=${this.roomId}`)
       .then(res => {
         this.room = res.data[0];
-        console.log(this.room);
       })
       .catch(err => {
         console.log(err);
@@ -112,7 +111,6 @@ export default {
             message: res.data[i].message,
           };
           this.messages.unshift(msg);
-          console.log(this.messages);
         }
       });
     // socket 연결
@@ -184,9 +182,6 @@ export default {
 .text-container {
   width: 90vw;
   margin: 0 auto;
-  /* width: 0;
-  height: 0; */
-  /* height: 8vh; */
   text-align: center;
 }
 .text-input {
@@ -195,12 +190,6 @@ export default {
   height: 6vh;
   width: 90vw;
   margin: 0 auto;
-  /* margin: 0 auto; */
-  /* width: 8vw; *
-  bottom: 1vh;
-  width: 100vw;
-  /* height: 9vh; */
-  /* text-align: center; */
 }
 input {
   width: 79vw;
@@ -266,6 +255,5 @@ li {
   font-size: 2em;
   color: rgb(245, 109, 145);
   text-align: right;
-  /* display: block; */
 }
 </style>

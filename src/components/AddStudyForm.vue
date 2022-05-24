@@ -6,8 +6,8 @@
       </div>
 
       <div class="main-container">
-        <h2>카테고리 선택</h2>
-        <div class="select" @change="select">
+        <h2 class="input-title">카테고리 선택</h2>
+        <div class="select" @change="selectType">
           <input type="radio" id="select1" name="type" value="language" />
           <label for="select1">언어</label>
           <input type="radio" id="select2" name="type" value="project" />
@@ -17,26 +17,22 @@
           <input type="radio" id="select4" name="type" value="job" />
           <label for="select4">취업</label>
         </div>
-        <hr
-          style="width:88vw; height:1px; border:none; background-color:rgb(233, 233, 222);"
-        />
+        <hr class="add-study-hr" />
       </div>
 
       <div class="main-container">
-        <h2>스터디 기간</h2>
+        <h2 class="input-title">스터디 기간</h2>
         <section>
           <!-- eslint-disable-next-line prettier/prettier -->
         <date-picker v-model="start" :lang="lang" placeholder="시작일" valueType="format"></date-picker>
           <!-- eslint-disable-next-line prettier/prettier -->
         <date-picker v-model="end" :lang="lang" placeholder="종료일" valueType="format"></date-picker>
         </section>
-        <hr
-          style="width:88vw; height:1px; border:none; background-color:rgb(233, 233, 222);"
-        />
+        <hr class="add-study-hr" />
       </div>
 
       <div class="textarea-container">
-        <h2 class="text-container">스터디 소개</h2>
+        <h2 class="text-container input-title">스터디 소개</h2>
         <select id="period" @change="period" class="period">
           <option selected="disabled">모집마감일</option>
           <option value="7">7일 후</option>
@@ -91,18 +87,9 @@ export default {
     };
   },
   methods: {
-    selectSi(si) {
-      console.log(si);
-      this.si = si;
-    },
-    selectGunGu(gungu) {
-      console.log(gungu);
-      this.gungu = gungu;
-    },
-    select() {
-      const sl = document.getElementsByName('type').length;
-
-      for (var i = 0; i < sl; i++) {
+    selectType() {
+      const typeLength = document.getElementsByName('type').length;
+      for (var i = 0; i < typeLength; i++) {
         if (document.getElementsByName('type')[i].checked == true) {
           this.type = document.getElementsByName('type')[i].value;
           console.log(document.getElementsByName('type')[i].value);
@@ -112,7 +99,6 @@ export default {
     period() {
       const select = document.getElementById('period');
       this.studyPeriod = select.options[select.selectedIndex].value;
-      console.log(this.studyPeriod);
     },
     submitForm() {
       const area = JSON.parse(localStorage.getItem('area'));
@@ -147,8 +133,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&display=swap');
-/* div안 h 태그에 margin 안먹힘 */
-h2 {
+.input-title {
   margin: 2vh auto;
   width: 86vw;
   font-family: 'Gothic A1', sans-serif;
@@ -258,5 +243,11 @@ textarea::placeholder {
   position: relative;
   left: 85vw;
   color: rgb(245, 109, 145);
+}
+.add-study-hr {
+  width: 88vw;
+  height: 1px;
+  border: none;
+  background-color: rgb(233, 233, 222);
 }
 </style>

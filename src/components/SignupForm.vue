@@ -20,32 +20,7 @@
       </div>
       <div>
         <label for="" class="label">지역 선택</label>
-        <div class="select">
-          <select
-            id="select1"
-            v-model="si"
-            @change="selectArea('select1', 'select2')"
-          >
-            <option selected disabled>시</option>
-            <option
-              v-for="(item, index) in koreaRegion"
-              :key="index"
-              :value="index"
-            >
-              {{ index }}
-            </option>
-          </select>
-          <select
-            id="select2"
-            v-model="gungu"
-            @change="selectArea('select2', 'select3')"
-          >
-            <option selected disabled>군구</option>
-          </select>
-          <select id="select3" v-model="dong">
-            <option selected disabled>읍면동</option>
-          </select>
-        </div>
+        <select-area></select-area>
       </div>
       <button class="submit" type="submit">가입하기</button>
     </form>
@@ -53,19 +28,17 @@
 </template>
 
 <script>
-import koreaRegion from '@/assets/koreaRegion.json';
+// import koreaRegion from '@/assets/koreaRegion.json';
 import { signUp } from '@/api/index.js';
+import SelectArea from './common/SelectArea.vue';
 export default {
+  components: { SelectArea },
   data() {
     return {
       userName: '',
       userId: '',
       userPw: '',
       checkPw: '',
-      si: '',
-      gungu: '',
-      dong: '',
-      koreaRegion,
     };
   },
   methods: {
@@ -74,28 +47,11 @@ export default {
         name: this.userName,
         userId: this.userId,
         pw: this.userPw,
-        area: { si: this.si, gungu: this.gungu, dong: this.dong },
+        area: this.$store.state.Study.area,
         dongList: [],
       };
       signUp(newUser);
       this.$router.push('./login');
-    },
-    selectArea(area1, area2) {
-      console.log(area1);
-      const select1 = document.getElementById(area1);
-      const select2 = document.getElementById(area2);
-      const mainArea = select1.options[select1.selectedIndex].value;
-      const subArea = koreaRegion[mainArea];
-
-      select2.options.length = 0;
-
-      for (let i in subArea) {
-        let opt = document.createElement('option');
-        opt.value = subArea[i];
-        opt.text = subArea[i];
-
-        select2.appendChild(opt);
-      }
     },
   },
 };
@@ -143,18 +99,17 @@ label {
   font-family: 'Gothic A1', sans-serif;
   font-size: 1.4rem;
 }
-select {
+/* select-area select {
   margin-top: 1.4vh;
-  /* margin-right: 4vw; */
   border: 1px solid rgb(233, 233, 222);
   border-radius: 10px;
   width: 25vw;
   height: 5.8vh;
 }
-.select {
+select-area.select {
   display: flex;
   justify-content: space-between;
-}
+} */
 .submit {
   margin-top: 4vh;
   width: 86vw;
@@ -165,5 +120,18 @@ select {
   border: none;
   color: white;
   font-family: 'Gothic A1', sans-serif;
+}
+</style>
+<style>
+select {
+  margin-top: 1.4vh;
+  border: 1px solid rgb(233, 233, 222);
+  border-radius: 10px;
+  width: 25vw;
+  height: 5.8vh;
+}
+.select {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

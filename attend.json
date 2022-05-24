@@ -69,6 +69,27 @@
       "createdAt": "2022-5-20",
       "studyName": "토익900",
       "id": 8
+    },
+    {
+      "name": "이다",
+      "attend": "출석",
+      "createdAt": "2022-5-23",
+      "studyName": "컴활",
+      "id": 9
+    },
+    {
+      "name": "쑤우",
+      "attend": "출석",
+      "createdAt": "2022-5-23",
+      "studyName": "컴활",
+      "id": 10
+    },
+    {
+      "name": "이다",
+      "attend": "출석",
+      "createdAt": "2022-5-23",
+      "studyName": "컴활",
+      "id": 11
     }
   ]
 }

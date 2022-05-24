@@ -60,6 +60,7 @@ export default {
   /* text-align: center; */
 }
 .info-container {
+  margin: 2vh auto;
   color: rgb(141, 141, 170);
   padding-left: 9vw;
   font-family: 'Gothic A1', sans-serif;

@@ -35,14 +35,11 @@ function addStudy(payload) {
 function studyAttend(payload) {
   return axios.post(`${attendURL.baseUrl}/studyAttend`, payload);
 }
-function addArea(payload) {
-  console.log(payload.dongList);
-  console.log(payload.name);
+async function addArea(payload) {
   // eslint-disable-next-line prettier/prettier
-  return axios.patch(`${userURL.baseUrl}/user/${payload.name}`, {"dongList":payload.dongList});
+  return await axios.patch(`${userURL.baseUrl}/user/${payload.name}`, {"dongList":payload.dongList});
 }
 function deleteChatRoom(payload) {
-  // console.log(payload);
   return axios.delete(`${chatRoomsURL.baseUrl}/chat?roomId=${payload}`);
 }
 function deleteChaMessages(payload) {
@@ -59,14 +56,13 @@ function addMembers(payload) {
   };
   // eslint-disable-next-line prettier/prettier
   axios.get(`${studyMembersURL.baseUrl}/member?title=${payload.title}`).then(res=> {
-      console.log(res.data);
       const userList = res.data[0].user;
-      console.log(userList.concat(memberInfo));
       // eslint-disable-next-line prettier/prettier
       return axios.patch(`${studyMembersURL.baseUrl}/member/${res.data[0].id}`, { "user": userList.concat(memberInfo) });
     });
 }
 function renewArea(payload) {
+  localStorage.setItem('area', JSON.stringify(payload.area));
   axios.patch(`${userURL.baseUrl}/user/${payload.userId}`, {
     area: payload.area,
   });

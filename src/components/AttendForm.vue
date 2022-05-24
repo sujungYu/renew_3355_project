@@ -1,36 +1,42 @@
 <template>
   <div class="container">
-    <select id="name" @change="selectMyStudy" class="selectStudy">
-      <option selected disabled>스터디 선택</option>
-      <option v-for="name in studyNames" :key="name">
-        {{ name }}
-      </option>
-    </select>
-    <attend>
-      <template v-slot:title>
-        내 출석부
-      </template>
-      <template v-slot:attend> {{ myAttend }}회 </template>
-      <template v-slot:late> {{ myLate }}회 </template>
-      <template v-slot:absence> {{ myAbsence }}회 </template>
-    </attend>
-    <template v-if="this.studyUsers.length != 0">
-      <select id="user" @change="getSelectedStudyAttend" class="member">
-        <option selected disabled>팀원</option>
-        <option v-for="user in this.studyUsers" :key="user.name">
-          {{ user.name }}
+    <div>
+      <select id="name" @change="selectMyStudy" class="selectStudy">
+        <option selected disabled>스터디 선택</option>
+        <option v-for="name in studyNames" :key="name">
+          {{ name }}
         </option>
       </select>
+    </div>
+    <div>
       <attend>
         <template v-slot:title>
-          스터디 출석부
+          내 출석부
         </template>
-        <template v-slot:attend> {{ attend }}회 </template>
-        <template v-slot:late> {{ late }}회 </template>
-        <template v-slot:absence> {{ absence }}회 </template>
+        <template v-slot:attend> {{ myAttend }}회 </template>
+        <template v-slot:late> {{ myLate }}회 </template>
+        <template v-slot:absence> {{ myAbsence }}회 </template>
       </attend>
-      <button class="attend-check" @click="check">출석 체크</button>
-    </template>
+    </div>
+    <div>
+      <template v-if="this.studyUsers.length != 0">
+        <select id="user" @change="getSelectedStudyAttend" class="member">
+          <option selected disabled>팀원</option>
+          <option v-for="user in this.studyUsers" :key="user.name">
+            {{ user.name }}
+          </option>
+        </select>
+        <attend>
+          <template v-slot:title>
+            스터디 출석부
+          </template>
+          <template v-slot:attend> {{ attend }}회 </template>
+          <template v-slot:late> {{ late }}회 </template>
+          <template v-slot:absence> {{ absence }}회 </template>
+        </attend>
+        <button class="attend-check" @click="check">출석 체크</button>
+      </template>
+    </div>
   </div>
 </template>
 

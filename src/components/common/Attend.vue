@@ -1,9 +1,7 @@
 <template>
   <div class="attend-container">
     <h2><slot name="title"></slot></h2>
-    <hr
-      style="width:86vw; height:1px; border:none; background-color:rgb(245, 109, 145);"
-    />
+    <hr class="attend-hr" />
     <div class="button-container">
       <button class="attend">출석<slot name="attend"></slot></button>
       <button class="late">지각<slot name="late"></slot></button>
@@ -18,17 +16,23 @@ export default {};
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
-h2 {
-  margin-bottom: 0;
-  color: rgb(245, 109, 145);
-  font-family: 'Sunflower', sans-serif;
-}
 .attend-container {
   margin: 0 auto;
   margin-bottom: 7.5vh;
   width: 86vw;
 }
-button {
+h2 {
+  margin-bottom: 0;
+  color: rgb(245, 109, 145);
+  font-family: 'Sunflower', sans-serif;
+}
+.button-container {
+  margin-top: 2.2vh;
+  width: 86vw;
+  display: flex;
+  justify-content: space-between;
+}
+.button-container button {
   width: 66px;
   height: 66px;
   border-radius: 33px;
@@ -44,10 +48,10 @@ button {
 .late {
   background-color: rgb(255, 217, 61);
 }
-.button-container {
-  margin-top: 2.2vh;
+.attend-hr {
   width: 86vw;
-  display: flex;
-  justify-content: space-between;
+  height: 1px;
+  border: none;
+  background-color: rgb(245, 109, 145);
 }
 </style>

@@ -25,15 +25,6 @@
         </template>
       </li>
     </ul>
-    <!-- <ul>
-      <li v-for="item in chatrooms" :key="item" @click="enterRoom(item.roomId)">
-        <i class="fa-solid fa-face-smile"></i>{{ item.roomName }}
-        <i
-          class="fa-solid fa-circle-minus"
-          @click="deleteRoom(item.roomId)"
-        ></i>
-      </li>
-    </ul> -->
   </div>
 </template>
 
@@ -51,9 +42,7 @@ export default {
   },
   async created() {
     this.user = JSON.parse(localStorage.getItem('user')).userId;
-    // console.log(this.user);
     await this.$store.dispatch('findChatRoom', this.user);
-    // console.log('1');
 
     // this.title = '토토토토익';
     // this.guest = '쑤우';
@@ -61,9 +50,7 @@ export default {
   },
   computed: {
     chatrooms() {
-      // console.log('2');
       // this.$store.dispatch('findChatRoom', this.host);
-      // console.log(this.$store.state.Study.chatRooms);
       return this.$store.state.Study.chatRooms;
     },
   },
